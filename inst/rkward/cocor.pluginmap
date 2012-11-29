@@ -1,0 +1,46 @@
+<!DOCTYPE rkpluginmap>
+<document 
+	namespace="rkward"
+	id="Comparingcorrelations_rkward"
+>
+	<!-- 
+		this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! 
+	-->
+	<!-- 
+		<about>
+			</about> 
+	-->
+	<!-- 
+		<require file="path/file.pluginmap" /> 
+	-->
+	<components>
+		<component 
+			id="cmp_CmprngcrrltnsCmprngcrrltn"
+			label="Comparing correlations"
+			type="standard"
+			file="plugins/Comparingcorrelations.xml"
+		 />
+	</components>
+	<hierarchy>
+		<menu 
+			id="analysis"
+			label.analysis="Analysis"
+		>
+			<menu 
+				id="correlation"
+				label="correlation"
+			>
+				<entry component="cmp_CmprngcrrltnsCmprngcrrltn" />
+			</menu>
+		</menu>
+	</hierarchy>
+	<!-- 
+		<context id="x11">
+			</context> 
+	-->
+	<!-- 
+		<context id="import">
+			</context> 
+	-->
+</document>

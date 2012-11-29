@@ -1,0 +1,4 @@
+export(cocor.dep.groups.nonoverlap)
+export(cocor.dep.groups.overlap)
+export(cocor.indep.groups)
+import(methods)

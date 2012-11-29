@@ -1,0 +1,42 @@
+<!DOCTYPE rkhelp>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<title>
+		Comparing correlations
+	</title>
+	<summary>
+		Compare two correlation coefficients based on either independent or dependent groups.
+	</summary>
+	<usage>
+	</usage>
+	<!-- <section id="sct_EDITORDE" title="EDIT OR DELETE ME">
+				EDIT OR DELETE ME
+			</section> -->
+	<settings>
+		<setting id="groups">
+			Indicate if the correlations are based on independent or dependent groups.
+		</setting>
+		<setting id="correlations">
+			State whether or not the correlations are overlapping and have one variable in common.
+		</setting>
+		<setting id="test_hypothesis_indep_groups">
+			Select a if the test should be one- or two-sided.
+		</setting>
+		<setting id="data_input">
+			Choose whether you want to type in the values manually or retrieve them from existing variables.
+		</setting>
+		<setting id="manual_indep_groups_frame">
+			Type in the required values or retrieve them from existing variables.
+		</setting>
+	</settings>
+	<!-- <related>
+				<ul>
+					<li>
+						<link href="rkward://rhelp/..." />
+					</li>
+				</ul>
+			</related> -->
+	<technical>
+	</technical>
+</document>
