@@ -18,8 +18,8 @@ methods <- c(
   steiger1980="Steiger's (1980) modification of Dunn and Clark's z (1969) using average correlations",
   meng1992="Meng, Rosenthal, and Rubin's z (1992)",
   raghunathan1996="Raghunathan, Rosenthal, and Rubin's (1996) modification of Pearson and Filon's z (1898)",
-  hittner2003="Hittner, May, and Silver's (2003) modification of Dunn and Clark's z (1969) using backtransformed average Fisher's (1921) z",
-  silver2004="Silver, Hittner, and May's (2004) modification of Dunn and Clark's z (1969) using backtransformed average Fisher's (1921) z",
+  hittner2003="Hittner, May, and Silver's (2003) modification of Dunn and Clark's z (1969) using a backtransformed average Fisher's (1921) Z procedure",
+  silver2004="Silver, Hittner, and May's (2004) modification of Dunn and Clark's z (1969) using a backtransformed average Fisher's (1921) Z procedure",
   zou2007="Zou's (2007) confidence interval"
 )
 

@@ -78,295 +78,213 @@
   to be provided as an additional parameter.
 }
 \section{Methods}{
-  Some methods make use of Fisher's r-to-z transformation
+  In the following, \eqn{r_{jk}} and \eqn{r_{jh}} are the
+  two correlations that are being compared; \eqn{Z_{jk}}
+  and \eqn{Z_{jh}} are their \eqn{Z} transformed
+  equivalents. \eqn{r_{kh}} is the related correlation that
+  is additionally required. \eqn{n} specifies the size of
+  the group the two correlations are based on. Some methods
+  make use of Fisher's \eqn{r}-to-\eqn{Z} transformation
   (1921, p. 26):
 
-  \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r))}
+  \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r)).}
 
   \describe{ \item{pearson1898:}{ \emph{Pearson and Filon's
-  z (1898)}
+  (1898) z}
 
-  The method was proposed by Pearson and Filon (1898, p.
-  259, formula xxxvii).
+  This method was proposed by Pearson and Filon (1898, p.
+  259, formula xxxvii). The test statistic \eqn{z} is
+  computed as \deqn{z = \frac{\sqrt{n} (r_{jk} -
+  r_{jh})}{\sqrt{(1 - r_{jk}^2)^2 + (1 - r_{jh}^2)^2 -
+  2k}}} (Steiger, 1980, p. 246, formula 4), where \deqn{k =
+  r_{kh}(1 - r_{jk}^2 - r_{jh}^2) -
+  \frac{1}{2}(r_{jk}r_{jh})(1 - r_{jk}^2 - r_{jh}^2 -
+  r_{kh}^2)} (Steiger, 1980, p. 245 formula 3). }
 
-  Steiger (1980, p. 245 formula 3): \deqn{k = r_{kh}(1 -
-  r_{jk}^2 - r_{jh}^2) - \frac{1}{2}(r_{jk}r_{jh})(1 -
-  r_{jk}^2 - r_{jh}^2 - r_{kh}^2)}
+  \item{hotelling1940:}{ \emph{Hotelling's (1940) t}
 
-  Steiger (1980, p. 246, formula 4): \deqn{z =
-  \frac{\sqrt{n} (r_{jk} - r_{jh})}{\sqrt{(1 - r_{jk}^2)^2
-  + (1 - r_{jh}^2)^2 - 2k}}}
-
-  }
-
-  \item{hotelling1940:}{ \emph{Hotelling's t (1940)}
-
-  Hotelling (1940, p. 278): \deqn{|R| = 1 + 2 r_{jk} r_{jh}
-  r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2}
-
-  Hotelling (1940, p. 278, formula 7): \deqn{t =
+  The test statistic \eqn{t} is given by \deqn{t =
   \frac{(r_{jk} - r_{jh})\sqrt{(n - 3)(1 +
-  r_{kh})}}{\sqrt{2|R|}}, df = n - 3}
+  r_{kh})}}{\sqrt{2|R|}}} (Hotelling, 1940, p. 278, formula
+  7) with \eqn{df = n - 3}, where \deqn{|R| = 1 + 2 r_{jk}
+  r_{jh} r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2}
+  (Hotelling, 1940, p. 278). The test statistic is also
+  given in Steiger (1980, p. 246), Glass and Stanley (1984,
+  p. 311, formula 15.7), and Hittner, May, and Silver
+  (2003, p. 152). }
 
-  The formula can also be found in Steiger (1980, p. 246),
-  Glass and Stanley (1984, p. 311, formula 15.7) or
-  Hittner, May, and Silver (2003, p. 152).
+  \item{williams1959:}{ \emph{Williams' (1959) t}
 
-  }
-
-  \item{williams1959:}{ \emph{Williams' t (1959)}
-
-  This method is a modification of Hotelling's \eqn{t}
-  (1940) and was suggested by Williams (1959). Two
-  mathematically different formulas for Williams' \eqn{t}
-  can be found in the literature. This is the version that
-  Hittner, May, and Silver (2003, p. 152) labeled as
-  "standard Williams' t". The alternative formula termed as
-  "Williams' modified \eqn{t} per Hendrickson, Stanley, and
-  Hills (1970)" by Hittner et al. (2003, p. 152) is
-  implemented as hendrickson1970. The term "standard
-  Williams' t" is also used in the DEPCORR script for SAS
-  software by Hittner and May (1998).
-
-  The formula (\code{williams1959}) can be found in Steiger
-  (1980, p. 246, formula 7) or Neill and Dunn (1975, p.
-  533).
-
-  \deqn{t = (r_{jk} - r_{jh})\sqrt{\frac{(n - 1)(1 +
+  This method is a modification of Hotelling's (1940)
+  \eqn{t} and was suggested by Williams (1959). Two
+  mathematically different formulae for Williams' \eqn{t}
+  can be found in the literature (Hittner et al., 2003, p.
+  152). This is the version that Hittner et al. (2003, p.
+  152) labeled as "standard Williams' \eqn{t}": \deqn{t =
+  (r_{jk} - r_{jh})\sqrt{\frac{(n - 1)(1 +
   r_{kh})}{2(\frac{n - 1}{n - 3})|R|+\bar r^2(1 -
-  r_{kh})^3}}, df = n - 3}
+  r_{kh})^3}}} with \eqn{df = n - 3}, where \deqn{\bar r =
+  \frac{r_{jk} + r_{jh}}{2}} and \deqn{|R| = 1 + 2 r_{jk}
+  r_{jh} r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2.} An
+  alternative formula for Williams' \eqn{t}---termed as
+  "Williams' modified \eqn{t} per Hendrickson, Stanley, and
+  Hills (1970)" by Hittner et al. (2003, p. 152)---is
+  implemented in this function as \code{hendrickson1970}
+  (see below). The test statistic of \code{williams1959} is
+  also given in Steiger (1980, p. 246, formula 7) and Neill
+  and Dunn (1975, p. 533).
 
-  \deqn{\bar r = \frac{r_{jk} + r_{jh}}{2}} \deqn{|R| = 1 +
-  2 r_{jk} r_{jh} r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2}
+  Results of \code{williams1959} are in accordance with the
+  results of the software DEPCORR by Hittner and May (1998)
+  and DEPCOR by Silver, Hittner, and May (2006). However,
+  we found several typographical errors in formulae that
+  also claim to compute Williams' \eqn{t}. For example, the
+  formula reported by Boyer, Palachek, and Schucany (1983,
+  p. 76) contains an error because the term \eqn{(1 -
+  r_{rk})} is not being cubed. There are also typographical
+  errors in the formula described by Hittner et al. (2003,
+  p. 152). For example, \eqn{r_{jk} - r_{jh}} is divided
+  instead of being multiplied by the square root term, and
+  in the denominator of the fraction in the square root
+  term, there are additional parentheses so that the whole
+  denominator is multiplied by 2. These same errors can
+  also be found in Wilcox and Tian (2008, p. 107, formula
+  1). }
 
-  This formula is also in accordance with the results of
-  the software DEPCORR by Hittner and May (1998) and DEPCOR
-  by Silver, Hittner, and May (2006). The formula reported
-  by Boyer, Palachek, and Schucany (1983, p. 76) is
-  misleading as the term \eqn{(1 - r_{rk})} is not being
-  cubed. There are also errors in the formula described by
-  Hittner, May, and Silver (2003, p. 152). \eqn{r_{jk} -
-  r_{jh}} is divided instead of being multiplied by the
-  square root term. In the denominator of the fraction in
-  the square root term, there are also additional
-  parentheses so that the whole denominator is multiplied
-  by 2. The same errors can be found in Wilcox and Tian
-  (2008, p. 107, formula 1):
+  \item{olkin1967:}{ \emph{Olkin's (1967) z}
 
-  \deqn{t = \frac{r_{jk} - r_{jh}}{\sqrt{\frac{(n - 1)(1 +
-  r_{kh})}{2((\frac{n - 1}{n - 3})|R|-\bar r^2(1 -
-  r_{kh})^3)}}}, df = n - 3}
-
-  }
-
-  \item{olkin1967:}{ \emph{Olkin's z (1967)}
-
-  The formula given by Olkin (1967, p. 112) and
-  Hendrickson, Stanley, and Hills (1970, p. 190, formula 2)
-  is incorrect. A corrected version can be found in
-  Hendrickson and Collins (1970, p. 639). However, in the
-  revised version \eqn{n} in the enumerator is decreased by
-  1. Glass and Stanley (1970, p. 313, formula 14.19),
-  Hittner, May, and Silver (2003, p. 152) and May and
-  Hittner (1997a, p. 259; 1997b, p. 480) report a version
-  without this decrement. In Olkin's original version
-  (1967) \eqn{n} is not reduced, either.
+  In the original article by Olkin (1967, p. 112) and in
+  Hendrickson, Stanley, and Hills (1970, p. 190, formula
+  2), the reported formula contains a typographical error.
+  Hendrickson and Collins (1970, p. 639) provide a
+  corrected version. In the revised version, however,
+  \eqn{n} in the enumerator is decreased by 1. This
+  function implements the corrected formula without the
+  decrement. The formula implemented in this function is
+  used by Glass and Stanley (1970, p. 313, formula 14.19),
+  Hittner et al. (2003, p. 152), and May and Hittner
+  (1997a, p. 259; 1997b, p. 480):
 
   \deqn{z = \frac{(r_{jk} - r_{jh})\sqrt{n}}{\sqrt{(1 -
   r_{jk}^2)^2 + (1 - r_{jh}^2)^2 - 2 r_{kh}^3 - (2 r_{kh} -
-  r_{jk} r_{jh}) (1 - r_{kh}^2 - r_{jk}^2 - r_{jh}^2)}}}
+  r_{jk} r_{jh}) (1 - r_{kh}^2 - r_{jk}^2 - r_{jh}^2)}}.} }
 
-  }
+  \item{dunn1969:}{ \emph{Dunn and Clark's (1969) z}
 
-  \item{dunn1969:}{ \emph{Dunn and Clark's z (1969)}
-
-  Dunn and Clark (1969, p. 368, formula 8): \deqn{c =
-  \frac{r_{kh}(1 - r_{jk}^2 - r_{jh}^2) - \frac{1}{2}
-  r_{jk} r_{jh} (1 - r_{jk}^2 - r_{jh}^2 - r_{kh}^2)}{(1 -
-  r_{jk}^2)(1 - r_{jh}^2)}}
-
-  Dunn and Clark (1969, p. 370, formula 15): \deqn{z =
-  \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
-
-  }
+  The test statistic \eqn{z} of this method is calculated
+  as \deqn{z = \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2
+  - 2c}}} (Dunn and Clark, 1969, p. 370, formula 15), where
+  \deqn{c = \frac{r_{kh}(1 - r_{jk}^2 - r_{jh}^2) -
+  \frac{1}{2} r_{jk} r_{jh} (1 - r_{jk}^2 - r_{jh}^2 -
+  r_{kh}^2)}{(1 - r_{jk}^2)(1 - r_{jh}^2)}} (Dunn and
+  Clark, 1969, p. 368, formula 8). }
 
   \item{hendrickson1970:}{ \emph{Hendrickson, Stanley, and
-  Hills' (1970) modification of Williams' t (1959)}
+  Hills' (1970) modification of Williams' (1959) t}
 
-  This method is a modification of Hotelling's \eqn{t}
-  (1940) and was suggested by Williams (1959). Two
-  mathematically different formulas of Williams' \eqn{t}
-  can be found in the literature. This is the version that
-  Hittner, May, and Silver (2003, p. 152) labeled as
-  "Williams' modified \eqn{t} per Hendrickson, Stanley, and
-  Hills (1970)". The alternative formula termed as
-  "standard Williams' t" by Hittner et al. (2003, p. 152)
-  is implemented as williams1959.
-
-  The formula can be found in Hendrickson, Stanley, and
-  Hills (1970, p. 193), May and Hittner (1997a, p. 259;
-  1997b, p. 480), and Hittner et al. (2003, p. 152).
-
-  \deqn{t = \frac{(r_{jk} - r_{jh})\sqrt{(n - 3)(1 +
+  This method is a modification of Hotelling's (1940)
+  \eqn{t} and was suggested by Williams (1959). Two
+  mathematically different formulae of Williams' (1959)
+  \eqn{t} can be found in the literature.
+  \code{hendrickson1970} is the version that Hittner et al.
+  (2003, p. 152) labeled as "Williams' modified \eqn{t} per
+  Hendrickson, Stanley, and Hills (1970)". An alternative
+  formula termed as "standard Williams' \eqn{t}" by Hittner
+  et al. (2003, p. 152) is implemented as
+  \code{williams1959} (see above). The
+  \code{hendrickson1970} formula can be found in
+  Hendrickson, Stanley, and Hills (1970, p. 193), May and
+  Hittner (1997a, p. 259; 1997b, p. 480), and Hittner et
+  al. (2003, p. 152): \deqn{t = \frac{(r_{jk} -
+  r_{jh})\sqrt{(n - 3)(1 +
   r_{kh})}}{\sqrt{2|R|+\frac{(r_{jk} - r_{jh})^2(1 -
-  r_{kh})^3}{4(n - 1)}}}, df = n - 3}
-
-  In the formula reported by Dunn and Clark (1971, p. 905,
-  formula 1.2), the fraction in the denominator seems to be
-  erroneous. The enumerator of this fraction reads as
-  \eqn{(n - 3)(r_{jk} + r_{jh})^2(1 - r_{kh})^3} instead of
-  \eqn{(r_{jk} - r_{jh})^2(1 - r_{kh})^3}:
-
-  \deqn{t = \frac{(r_{jk} - r_{jh})\sqrt{\frac{(n - 3)(1 +
-  r_{kh})}{2|R|}}}{\sqrt{1 + \frac{(n - 3)(r_{jk} +
-  r_{jh})^2(1 - r_{kh})^3}{8(n - 1)|R|}}}, df = n - 3}
-
-  }
+  r_{kh})^3}{4(n - 1)}}}} with \eqn{df = n - 3}. A slightly
+  changed version of this formula was provided by Dunn and
+  Clark (1971, p. 905, formula 1.2), but seems to be
+  erroneous, due to an error in the denominator. }
 
   \item{steiger1980:}{ \emph{Steiger's (1980) modification
-  of Dunn and Clark's z (1969) using average correlations}
+  of Dunn and Clark's (1969) z using average correlations}
 
   This method was proposed by Steiger (1980) and is a
-  modification of Dunn and Clark's work (1969). Instead of
-  \eqn{r.jk} and \eqn{r.jh} the mean of the two is being
-  used.
-
-  Steiger (1980, p. 247): \deqn{\bar r = \frac{r_{jk} +
-  r_{jh}}{2}}
-
-  Steiger (1980, p. 247, formula 10; In the original
-  article, there are brackets missing in the denominator):
+  modification of Dunn and Clark's (1969) \eqn{z}. Instead
+  of \eqn{r_{jk}} and \eqn{r_{jh}}, the mean of the two is
+  used. The test statistic \eqn{z} is defined as \deqn{z =
+  \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
+  (Steiger 1980, p. 247, formula 14), where \deqn{\bar r =
+  \frac{r_{jk} + r_{jh}}{2}} (Steiger, 1980, p. 247) and
   \deqn{c = \frac{r_{kh}(1 - 2\bar r^2) - \frac{1}{2}\bar
   r^2(1 - 2\bar r^2 - r_{kh}^2)}{(1 - \bar r^2)^2}}
-
-  Steiger (1980, p. 247, formula 14): \deqn{z =
-  \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
-
+  (Steiger ,1980, p. 247, formula 10; in the original
+  article, there are brackets missing around the divisor).
   }
 
-  \item{meng1992:}{ \emph{Meng, Rosenthal, and Rubin's z
-  (1992)}
+  \item{meng1992:}{ \emph{Meng, Rosenthal, and Rubin's
+  (1992) z}
 
-  Meng, Rosenthal, and Rubin (1992, p. 173):
-  \deqn{\overline {r^2} = \frac{r_{jk}^2 + r_{jh}^2}{2}}
-
-  Meng et al. (1992, p. 173, formula 3): \deqn{f = \frac{1
-  - r_{kh}}{2(1 - \overline {r^2})} \textit{, which must
-  be} \le 1}
-
-  Meng et al. (1992, p. 173, formula 2): \deqn{h = \frac{1
-  - f\overline {r^2}}{1 - \overline {r^2}}}
-
-  Test statistic (Meng et al., 1992, p. 173, formula 1):
+  This method is based on the test statistic \eqn{z},
   \deqn{z = (Z_{jk} - Z_{jh}) \sqrt{\frac{n - 3}{2(1 -
-  r_{kh})h}}}
-
-  The method also includes a confidence interval of the
-  difference between the two correlation coefficients
-  \eqn{r_{jk}} and \eqn{r_{jh}} (Meng et al., 1992, p. 173,
-  formula 4): \deqn{L, U = Z_{jk} - Z_{jk} \pm
+  r_{kh})h}},} (Meng et al., 1992, p. 173, formula 1),
+  where \deqn{h = \frac{1 - f\overline {r^2}}{1 - \overline
+  {r^2}}} (Meng et al., 1992, p. 173, formula 2), \deqn{f =
+  \frac{1 - r_{kh}}{2(1 - \overline {r^2})}} (\eqn{f} must
+  be \eqn{\le 1}; Meng et al., 1992, p. 173, formula 3),
+  and \deqn{\overline {r^2} = \frac{r_{jk}^2 +
+  r_{jh}^2}{2}} (Meng et al., 1992, p. 173). This method
+  also provides a confidence interval of the difference
+  between the two correlation coefficients \eqn{r_{jk}} and
+  \eqn{r_{jh}}: \deqn{L, U = Z_{jk} - Z_{jk} \pm
   z_{\frac{\alpha}{2}} \sqrt{\frac{2(1 - r_{kh})h}{n - 3}}}
-
-  }
+  (Meng et al., 1992, p. 173, formula 4). \eqn{\alpha}
+  denotes the desired alpha level of the confidence
+  interval. If the confidence interval includes zero, the
+  null hypothesis that the two correlations are equal must
+  be retained. If zero is outside the confidence interval,
+  the null hypothesis can be rejected. }
 
   \item{hittner2003:}{ \emph{Hittner, May, and Silver's
-  (2003) modification of Dunn and Clark's z (1969) using
-  backtransformed average Fisher's (1921) zs}
+  (2003) modification of Dunn and Clark's (1969) z using a
+  backtransformed average Fisher's (1921) Z procedure}
 
-  The idea to backtransform averaged \eqn{Z}s was first
-  proposed in Silver and Dunlap (1987) and was applied to
-  the comparison of overlapping correlations by Hittner,
-  May, and Silver (2003). Their method is based on
-  Steiger's approach (1980).
-
-  Described in Silver and Dunlap (1987, p. 146): \deqn{\bar
-  Z = \frac{Z_{jk} + Z_{jh}}{2}}
-
-  Silver and Dunlap (1987, p. 146, formula 4): \deqn{\bar
-  r_z = \frac{exp(2\bar Z - 1)}{exp(2\bar Z + 1)}}
-
-  Hittner et al. (2003, p. 153): \deqn{c = \frac{r_{kh}(1 -
-  2\bar r_z^2) - \frac{1}{2}\bar r_z^2(1 - 2\bar r_z^2 -
-  r_{kh}^2)}{(1 - \bar r_z^2)^2}}
-
-  Hittner et al. (2003, p. 153): \deqn{z = \frac{(Z_{jk} -
-  Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
-
-  }
+  The approach to backtransform averaged Fisher's (1921)
+  \eqn{Z}s was first proposed by Silver and Dunlap (1987)
+  and was applied to the comparison of overlapping
+  correlations by Hittner et al. (2003). The method is
+  based on Steiger's (1980) approach. The test statistic
+  \eqn{z} is calculated as \deqn{z = \frac{(Z_{jk} -
+  Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}} (Hittner et al.,
+  2003, p. 153), where \deqn{c = \frac{r_{kh}(1 - 2\bar
+  r_z^2) - \frac{1}{2}\bar r_z^2(1 - 2\bar r_z^2 -
+  r_{kh}^2)}{(1 - \bar r_z^2)^2}} (Hittner et al., 2003, p.
+  153), \deqn{\bar r_z = \frac{exp(2\bar Z - 1)}{exp(2\bar
+  Z + 1)}} (Silver and Dunlap, 1987, p. 146, formula 4),
+  and \deqn{\bar Z = \frac{Z_{jk} + Z_{jh}}{2}} (Silver and
+  Dunlap, 1987, p. 146). }
 
   \item{zou2007:}{ \emph{Zou's (2007) confidence interval}
 
   This method calculates the confidence interval of the
   difference between the two correlation coefficients
-  \eqn{r_{jk}} and \eqn{r_{jh}}.
+  \eqn{r_{jk}} and \eqn{r_{jh}}. If the confidence interval
+  includes zero, the null hypothesis that the two
+  correlations are equal must be retained. If zero is
+  outside the confidence interval, the null hypothesis can
+  be rejected. A lower and upper bound for the interval
+  (\eqn{L} and \eqn{U}, respectively) is given by \deqn{L =
+  r_{jk} - r_{jh} - \sqrt{(r_{jk} - l_1)^2 + (u_2 -
+  r_{jh})^2 - 2c(r_{jk} - l_1)(u_2 - r_{jh})}} and \deqn{U
+  = r_{jk} - r_{jh} - \sqrt{(u_1 - r_{jk})^2 + (r_{jh} -
+  l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2)}} (Zou, 2007, p.
+  409), where \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}
+  \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}} (Zou, 2007,
+  p. 406), \deqn{c = \frac{(r_{kh} - \frac{1}{2} r_{jk}
+  r_{jh})(1 - r_{jk}^2- r_{jh}^2- r_{kh}^2) + r_{kh}^3}{(1
+  - r_{jk}^2)(1 - r_{jh}^2)}} (Zou, 2007, p. 409), and
+  \deqn{l',u' = Z \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n
+  - 3}}} (Zou, 2007, p. 406). \eqn{\alpha} denotes the
+  desired alpha level of the confidence interval. }
 
-  Zou (2007, p. 406): \deqn{l',u' = Z \pm
-  z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n - 3}}}
-
-  Zou (2007, p. 406): \deqn{l = \frac{exp(2l') -
-  1}{exp(2l') + 1}} \deqn{u = \frac{exp(2u') - 1}{exp(2u')
-  + 1}}
-
-  Zou (2007, p. 409): \deqn{c = \frac{(r_{kh} - \frac{1}{2}
-  r_{jk} r_{jh})(1 - r_{jk}^2- r_{jh}^2- r_{kh}^2) +
-  r_{kh}^3}{(1 - r_{jk}^2)(1 - r_{jh}^2)}}
-
-  Zou (2007, p. 409): \deqn{L = r_{jk} - r_{jh} -
-  \sqrt{(r_{jk} - l_1)^2 + (u_2 - r_{jh})^2 - 2c(r_{jk} -
-  l_1)(u_2 - r_{jh})}} \deqn{U = r_{jk} - r_{jh} -
-  \sqrt{(u_1 - r_{jk})^2 + (r_{jh} - l_2)^2 - 2c(u_1 -
-  r_{jk})(r_{jh} - l_2)}}
-
-  } }
-}
-
-\section{Recommended methods}{
-  Silver, Hittner, and May (2006) summarize the Monte Carlo
-  studies by May and Hittner (1997b) and Hittner, May, and
-  Silver (2003) and formulate recommendations for applied
-  researchers. They found hendrickson1970, dunn1969,
-  steiger1980, meng1992, and hittner2003 to be equally
-  acceptable in terms of controlling Type I error and
-  power.
-
-  Dunn and Clark (1971) compared hotelling1940 and
-  hendrickson1970 with respect to Type I error rate and
-  statistical power and suggest to use hendrickson1970.
-
-  Neill and Dunn (1975) compared hotelling1940 and
-  williams1959 and recommend williams1959 for small
-  samples.
-
-  Steiger (1980) considers pearson1898, hotelling1940,
-  williams1959, dunn1969, and steiger1980 in his article.
-  He recommends williams1959, dunn1969, and steiger1980 as
-  they maintain a better Type I error control at small
-  sample sizes than pearson1898 and hotelling1940, with
-  williams1959 probably as the best all-round choice.
-
-  Boyer et al. (1983) compared williams1959 with other
-  tests and found williams1959 to be the best choice if a
-  normal distribution can be assumed.
-
-  May and Hittner (1997b) compared hotelling1940,
-  hendrickson1970, olkin1967, and meng1992. They found no
-  method to be preferable over the other methods. Instead,
-  they indicate that the decision should depend on sample
-  size, predictor intercorrelation, effect size, and
-  predictor-criterion correlations. In nearly no case a
-  difference was found between the two \eqn{t} tests
-  (hotelling1940 and hendrickson1970) and between the two
-  \eqn{z} tests (olkin1967 and meng1992). In general, the
-  \eqn{t} tests provide a greater power than the \eqn{z}
-  tests, however, at the expense of type I error rate.
-
-  Hittner et al. (2003) compared hotelling1940,
-  hendrickson1970, williams1959, olkin1967, dunn1969,
-  steiger1980, meng1992, and hittner2003. They recommend
-  not to use hotelling1940, hendrickson1970, olkin1967, as
-  they inflate type I error rates. Hittner et al. (2003)
-  found williams1959 and dunn1969 to have the best overall
-  statistical properties.
+  }
 }
 \examples{
 # Compare the difference between the correlations (age, intelligence) and

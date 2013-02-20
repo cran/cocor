@@ -291,7 +291,6 @@ local({
     variable.dep.groups.nonoverlap.n.required.connect
   )
 
-  JS.prep <- rk.paste.JS(echo("require(cocor)\n"))
   JS.calc <- rk.paste.JS(
     ##manual input
     ite(id(data.input, " == 'manual' && ", groups, " == 'indep'"), echo("result <- cocor.indep.groups(r1=", manual.indep.groups.r1, ", n1=", manual.indep.groups.n1, ", r2=", manual.indep.groups.r2, ", n2=", manual.indep.groups.n2, ", alternative=\"", test.hypothesis.indep.groups, "\", alpha = ",  alpha, ")\n")),
@@ -331,7 +330,6 @@ local({
     js=list(
       require="cocor",
       results.header="\"Comparing correlations\"",
-      preprocess=JS.prep,
       calculate=JS.calc,
       printout=JS.print
     ),

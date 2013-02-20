@@ -3,90 +3,85 @@
 #' Performs a test of significance for the difference between two correlations based on dependent groups (e.g., the same group). The two correlations are nonoverlapping, i.e., they have no variable in common. The function tests whether the correlations between \code{j} and \code{k} (\code{r.jk}) and between \code{h} and \code{m} (\code{r.hm}) differ in magnitude. Because the significance depends on the pairwise intercorrelations between all of the variables involved (\code{j}, \code{k}, \code{h}, and \code{m}), these intercorrelations have to be provided as additional parameters.
 #'
 #'@section Methods:
-#' Some methods make use of Fisher's r-to-z transformation (1921, p. 26):
+#' In the following, \eqn{r_{jk}} and \eqn{r_{hm}} are the two correlations that are being compared; \eqn{Z_{jk}} and \eqn{Z_{hm}} are their \eqn{Z} transformed equivalents.
+#' \eqn{r_{jh}}, \eqn{r_{kh}}, \eqn{r_{jm}}, and \eqn{r_{km}} are the related correlations that are also required.
+#' \eqn{n} specifies the size of the group the two correlations are based on.
+#' Some methods make use of Fisher's \eqn{r}-to-\eqn{Z} transformation (1921, p. 26):
 #'
-#' \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r))}
+#' \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r)).}
 #'
 #'\describe{
 ### pearson1898
 #'\item{pearson1898:}{
-#'\emph{Pearson and Filon's z (1898)}
+#'\emph{Pearson and Filon's (1898) z}
 #'
-#' The method was proposed by Pearson and Filon (1898, p. 262, formula xl).
-#'
-#' Raghunathan, Rosenthal, and Rubin (1996, p. 179, formula 2):
-#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh}) + (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm})}
-#' \eqn{+ (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
-#'
-#' Raghunathan et al. (1996, p. 179, formula 1):
+#' This method was proposed by Pearson and Filon (1898, p. 262, formula xl).
+#' The formula for the test statistic \eqn{z} is computed as
 #' \deqn{z = \frac{\sqrt{n} (r_{jk} - r_{hm})}{\sqrt{(1 - r_{jk}^2)^2 + (1 - r_{hm}^2)^2 - k}}}
-#'
-#' The two formulas can also be found in Steiger (1980, p. 245, formula 2, p. 246, formula 5).
-#'
+#' (Raghunathan, Rosenthal, and Rubin, 1996, p. 179, formula 1), where
+#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh})}
+#' \deqn{+ (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
+#' (Raghunathan et al. (1996, p. 179, formula 2).
+#' The two formulae can also be found in Steiger (1980, p. 245, formula 2 and p. 246, formula 5).
 #'}
 #'
 ### dunn1969
 #'\item{dunn1969:}{
-#'\emph{Dunn and Clark's z (1969)}
+#'\emph{Dunn and Clark's (1969) z}
 #'
-#' Dunn and Clark (1969, p. 368, formula 9):
-#' \deqn{c = \frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jk} r_{hm} + r_{jm} r_{kh} - (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})}
-#' \deqn{\Big/ ((1 - r_{jk}^2)(1 - r_{hm}^2))}
-#'
-#' Dunn and Clark (1969, p. 370, formula 15):
-#' \deqn{z = \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
-#'
+#' The test statistic \eqn{z} of this method is calculated as
+#' \deqn{z = \frac{(Z_{jk} - Z_{hm})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
+#' (Dunn and Clark, 1969, p. 370, formula 15), where
+#' \deqn{c = \Bigl(\frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jk} r_{hm} + r_{jm} r_{kh}}
+#' \deqn{-(r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})\Bigr)}
+#' \deqn{\Big/ \Bigl((1 - r_{jk}^2)(1 - r_{hm}^2)\Bigr)}
+#' (Dunn and Clark, 1969, p. 368, formula 9).
 #'}
 #'
 ### steiger1980
 #'\item{steiger1980:}{
-#'\emph{Steiger's (1980) modification of Dunn and Clark's z (1969) using average correlations}
+#'\emph{Steiger's (1980) modification of Dunn and Clark's (1969) z using average correlations}
 #'
-#' This method was proposed by Steiger (1980) and is a modification of Dunn and Clark's work (1969). Instead of \eqn{r.jk} and \eqn{r.hm} the mean of the two is being used.
-#'
-#' Steiger (1980, p. 247):
-#' \deqn{\bar r = \frac{r_{jk} + r_{hm}}{2}}
-#'
-#' Steiger (1980, p. 247, formula 11; In the original article, there are brackets missing in the denominator):
-#' \deqn{c = \frac{\frac{1}{2} \bar r^2 (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + \bar r^2 + r_{jm} r_{kh} - (\bar r r_{jh} r_{jm} + \bar r r_{kh} r_{km} + r_{jh} r_{kh} \bar r + r_{jm} r_{km} \bar r)}{(1 - \bar r^2)^2}}
-#'
-#' Steiger (1980, p. 247, formula 15):
+#' This method was proposed by Steiger (1980) and is a modification of Dunn and Clark's (1969) \eqn{z}.
+#' Instead of \eqn{r_{jk}} and \eqn{r_{hm}} the mean of the two is being used.
+#' The test statistic \eqn{z} is given by
 #' \deqn{z = \frac{(Z_{jk} - Z_{hm})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
+#' (Steiger, 1980, p. 247, formula 15), where
+#' \deqn{\bar r = \frac{r_{jk} + r_{hm}}{2}}
+#' (Steiger, 1980, p. 247) and
+#' \deqn{c = \frac{\frac{1}{2} \bar r^2 (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + \bar r^2 + r_{jm} r_{kh} - (\bar r r_{jh} r_{jm} + \bar r r_{kh} r_{km} + r_{jh} r_{kh} \bar r + r_{jm} r_{km} \bar r)}{(1 - \bar r^2)^2}}
+#' (Steiger, 1980, p. 247, formula 11; in the original article, there are brackets missing around the divisor).
 #'}
 #'
 ### raghunathan1996
 #'\item{raghunathan1996:}{
-#'\emph{Raghunathan, Rosenthal, and Rubin's (1996) modification of Pearson and Filon's z (1898)}
+#'\emph{Raghunathan, Rosenthal, and Rubin's (1996) modification of Pearson and Filon's (1898) z}
 #'
-#' This method of Raghunathan, Rosenthal, and Rubin (1996) is based on Pearson and Filon (1898). Unlike Pearson and Filon (1898), Raghunathan et al. (1996) use \eqn{z}-transformed correlation coefficients.
-#'
-#' Raghunathan et al. (1996, p. 179, formula 2):
-#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh}) + (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm})}
-#' \eqn{+ (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
-#'
-#' Raghunathan et al. (1996, p. 179, formula 3):
+#' This method of Raghunathan, Rosenthal, and Rubin (1996) is based on Pearson and Filon's (1898) \eqn{z}.
+#' Unlike Pearson and Filon (1898), Raghunathan et al. (1996) use \eqn{Z} transformed correlation coefficients.
+#' The test statistic \eqn{z} is computed as
 #' \deqn{z = \sqrt{\frac{n - 3}{2}} \frac{Z_{jk} - Z_{hm}}{\sqrt{1 - \frac{k}{2(1 - r_{jk}^2)(1 - r_{hm}^2)}}}}
-#'
+#' (Raghunathan et al.,(1996, p. 179, formula 3), where
+#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh})}
+#' \deqn{+ (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
+#' (Raghunathan et al., 1996, p. 179, formula 2).
 #'}
 #'
 ### silver2004
 #'\item{silver2004:}{
-#'\emph{Silver, Hittner, and May's (2004) modification of Dunn and Clark's z (1969) using backtransformed average Fisher's (1921) zs}
+#'\emph{Silver, Hittner, and May's (2004) modification of Dunn and Clark's (1969) z using a backtransformed average Fisher's (1921) Z procedure}
 #'
-#' The idea to backtransform averaged \eqn{Z}s was first proposed in Silver and Dunlap (1987) and was applied to the comparison of nonoverlapping correlations by Silver, Hittner, and May (2004). Their method is based on Steiger's approach (1980).
-#'
-#' Silver et al. (2004, p. 55):
-#' \deqn{\bar Z = \frac{Z_{jk} + Z_{hm}}{2}}
-#'
-#' Silver and Dunlap (1987, p. 146, formula 4):
-#' \deqn{\bar r_z = \frac{exp(2\bar Z - 1)}{exp(2\bar Z + 1)}}
-#'
-#' Silver et al. (2004, p. 56):
-#' \deqn{c = \frac{\frac{1}{2} \bar r_z^2 (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + \bar r_z^2 + r_{jm} r_{kh} - (\bar r_z r_{jh} r_{jm} + \bar r_z r_{kh} r_{km} + r_{jh} r_{kh} \bar r_z + r_{jm} r_{km} \bar r_z)}{(1 - \bar r_z^2)^2}}
-#'
-#' Silver et al. (2004, p. 55, formula 5);
+#' The approach to backtransform averaged Fisher's (1921) \eqn{Z}s was first proposed in Silver and Dunlap (1987) and was applied to the comparison of nonoverlapping correlations by Silver et al. (2004).
+#' The method is based on Steiger's (1980) approach.
+#' The formula of the test statistic \eqn{z} is given by
 #' \deqn{z = \frac{(Z_{jk} - Z_{hm})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
-#'
+#' (Silver et al., 2004, p. 55, formula 5), where
+#' \deqn{c = \frac{\frac{1}{2} \bar r_z^2 (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + \bar r_z^2 + r_{jm} r_{kh} - (\bar r_z r_{jh} r_{jm} + \bar r_z r_{kh} r_{km} + r_{jh} r_{kh} \bar r_z + r_{jm} r_{km} \bar r_z)}{(1 - \bar r_z^2)^2}}
+#' (Silver et al., 2004, p. 56),
+#' \deqn{\bar r_z = \frac{exp(2\bar Z - 1)}{exp(2\bar Z + 1)}}
+#' (Silver and Dunlap, 1987, p. 146, formula 4), and
+#' \deqn{\bar Z = \frac{Z_{jk} + Z_{hm}}{2}}
+#' (Silver et al., 2004, p. 55).
 #'}
 #'
 ### zou2007
@@ -94,32 +89,26 @@
 #'\emph{Zou's (2007) confidence interval}
 #'
 #' This method calculates the confidence interval of the difference between the two correlations \eqn{r_{jk}} and \eqn{r_{hm}}.
-#'
-#' Zou (2007, p. 406):
-#' \deqn{l',u' = Z \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n - 3}}}
-#'
-#' Zou (2007, p. 406):
-#' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1}}
-#' \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}
-#'
-#' Zou (2007, p. 409):
-#' \deqn{c = \frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jk} r_{hm} + r_{jm} r_{kh} - (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})}
-#' \deqn{\Big/ ((1 - r_{jk}^2)(1 - r_{hm}^2))}
-#'
-#' Zou (2007, pp. 409–410):
+#' If the confidence interval includes zero, the null hypothesis that the two correlations are equal must be retained.
+#' If zero is outside the confidence interval, the null hypothesis can be rejected.
+#' A lower and upper bound for the interval (\eqn{L} and \eqn{U}, respectively) is given by
 #' \deqn{L = r_{jk} - r_{hm} - \sqrt{(r_{jk} - l_1)^2 + (u_2 - r_{hm})^2 - 2c(r_{jk} - l_1)(u_2 - r_{hm})}}
+#' and
 #' \deqn{U = r_{jk} - r_{hm} - \sqrt{(u_1 - r_{jk})^2 + (r_{hm} - l_2)^2 - 2c(u_1 - r_{jk})(r_{hm} - l_2)}}
+#' (Zou, 2007, pp. 409–410), where
+#' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}
+#' \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}
+#' (Zou, 2007, p. 406),
+#' \deqn{c = \Bigl(\frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jk} r_{hm} + r_{jm} r_{kh}}
+#' \deqn{- (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})\Bigr)}
+#' \deqn{\Big/ \Bigl((1 - r_{jk}^2)(1 - r_{hm}^2)\Bigr)}
+#' (Zou, 2007, p. 409), and
+#' \deqn{l',u' = Z \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n - 3}}}
+#' (Zou, 2007, p. 406).
+#' \eqn{\alpha} denotes the desired alpha level of the confidence interval.
+#'}
 #'
 #'}
-#'}
-#'
-#' @section Recommended methods:
-#'
-#' Silver et al. (2004) compared pearson1898, dunn1969, steiger1980, hittner2003. Their recommendation is to use dunn1969, steiger1980, and hittner2003, as they offer lower Type I error rates and higher statistical power than pearson1898.
-#'
-#' Steiger (1980) compared pearson1898, dunn1969, and steiger1980. He recommends dunn1969 and steiger1980 as they maintain a better Type I error control at small sample sizes than pearson1898.
-#'
-#' In a direct comparison, Raghunathan et al. (1996) found raghunathan1996 to be superior to pearson1898 with respect to both type I error rate and statistical power.
 #'
 #' @param r.jk A number specifying the correlation between \eqn{j} and \eqn{k} (this correlation is used for comparison)
 #' @param r.hm A number specifying the correlation between \eqn{h} and \eqn{m} (this correlation is used for comparison)
@@ -257,7 +246,7 @@ cocor.dep.groups.nonoverlap <- function(r.jk, r.hm, r.jh, r.jm, r.kh, r.km, n, a
         result@raghunathan1996 <- list(distribution=distribution, statistic=statistic, p.value=p.value)
       },
       silver2004={
-        r.bt <- fisher.z2r((fisher.r2z(r.jk) + fisher.r2z(r.hm)) / 2) # backtransform pooled z-transformed rs
+        r.bt <- fisher.z2r((fisher.r2z(r.jk) + fisher.r2z(r.hm)) / 2) # backtransform pooled Z-transformed rs
         covariance.enum <- (r.jh - r.bt * r.kh) * (r.km - r.kh * r.bt) + (r.jm - r.jh * r.bt) * (r.kh - r.bt * r.jh) + (r.jh - r.jm * r.bt) * (r.km - r.bt * r.jm) + (r.jm - r.bt * r.km) * (r.kh - r.km * r.bt)
         covariance.denom <- 2 * (1 - r.bt^2)^2
         covariance <- covariance.enum / covariance.denom

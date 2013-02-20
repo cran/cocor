@@ -3,38 +3,45 @@
 #' Performs a test of significance for the difference between two correlation coefficients based on independent groups.
 #'
 #'@section Methods:
-#' Some methods make use of Fisher's r-to-z transformation (1921, p. 26):
+#' The methods make use of Fisher's \eqn{r}-to-\eqn{Z} transformation (1921, p. 26):
 #'
-#' \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r))}
+#' \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r)).}
 #'
 #'\describe{
 ### fisher1925
 #'\item{fisher1925:}{
-#' \emph{Fisher's z (1925)}
-#'
-#' The method was first described in Fisher (1925, pp. 161–168). The formula can also be found for example in Peters and van Voorhis (1940, p. 188) or Cohen, Cohen, West, and Aiken (2003, p. 49, formula 2.8.11).
-#' \deqn{z = \frac{Z_1 - Z_2}{\sqrt{\frac{1}{n_1 - 3} + \frac{1}{n_2 - 3}}}}
-#'
-#'}
+#' \emph{Fisher's (1925) z}
+#' 
+#' This significance test was first described in Fisher (1925, pp. 161–168) and its test statistic \eqn{z} is calculated as
+#' 
+#' \deqn{z = \frac{Z_1 - Z_2}{\sqrt{\frac{1}{n_1 - 3} + \frac{1}{n_2 - 3}}}.}
+#' 
+#' \eqn{Z_1} and \eqn{Z_2} are the two \eqn{Z} transformed correlations that are being compared.
+#' \eqn{n_1} and \eqn{n_2} specify the size of the two groups the correlations are based on.
+#' The equation is also given for example in Peters and van Voorhis (1940, p. 188) and Cohen, Cohen, West, and Aiken (2003, p. 49, formula 2.8.11).
+#' }
 #'
 ### zou2007
 #'\item{zou2007:}{
 #' \emph{Zou's (2007) confidence interval}
 #'
 #' This method calculates the confidence interval of the difference between the two correlation coefficients \eqn{r_1} and \eqn{r_2}.
-#'
-#' Zou (2007, p. 406):
-#' \deqn{l',u' = Z \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n - 3}}}
-#'
-#' Zou (2007, p. 406):
-#' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1}}
-#' \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}
-#'
-#' Zou (2007, p. 409):
+#' If the confidence interval includes zero, the null hypothesis that the two correlations are equal must be retained.
+#' If zero is outside the confidence interval, the null hypothesis can be rejected.
+#' A lower and upper bound for the interval (\eqn{L} and \eqn{U}, respectively) is given by
 #' \deqn{L = r_1 - r_2 - \sqrt{(r_1 - l_1)^2 + (u_2 - r_2)^2}}
+#' and
 #' \deqn{U = r_1 - r_2 - \sqrt{(u_1 - r_1)^2 + (r_2 - l_2)^2}}
+#' (Zou, 2007, p. 409).
+#' A lower and upper bound for the confidence interval of \eqn{r_1} (\eqn{l_1} and \eqn{u_1}) and \eqn{r_2} (\eqn{l_2} and \eqn{u_2}) are calculated as
+#' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}
+#' \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}
+#' (Zou, 2007, p. 406), where
+#' \deqn{l',u' = Z \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n - 3}}}
+#' (Zou, 2007, p. 406).
+#' \eqn{\alpha} denotes the desired alpha level of the confidence interval, whereas \eqn{n} specifies the size of the group the correlation is based on.
+#' }
 #'
-#'}
 #'}
 #'
 #' @param r1 A number specifying the correlation measured in group 1
