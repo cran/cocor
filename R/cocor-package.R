@@ -3,8 +3,8 @@
 #' \tabular{ll}{
 #' Package: \tab cocor\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.01-2\cr
-#' Date: \tab 2013-02-20\cr
+#' Version: \tab 0.01-3\cr
+#' Date: \tab 2013-03-11\cr
 #' Depends: \tab methods\cr
 #' Enhances: \tab rkward\cr
 #' Encoding: \tab UTF-8\cr

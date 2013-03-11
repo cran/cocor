@@ -14,11 +14,11 @@ LazyLoad: yes
 URL: http://r.birkdiedenhofen.de/pckg/cocor/
 Authors@R: c(person(given="Birk", family="Diedenhofen",
         email="mail@birkdiedenhofen.de", role=c("aut", "cre")))
-Version: 0.01-2
-Date: 2013-02-20
+Version: 0.01-3
+Date: 2013-03-11
 Collate: 'cocor.dep.groups.nonoverlap.r' 'cocor.dep.groups.overlap.r'
         'cocor.indep.groups.r' 'cocor-package.R' 'helper.r'
-Packaged: 2013-02-20 16:14:43 UTC; birk
+Packaged: 2013-03-11 13:32:37 UTC; birk
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-02-21 17:36:18
+Date/Publication: 2013-03-12 11:23:47
