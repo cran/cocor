@@ -95,7 +95,7 @@
 #' \deqn{L = r_{jk} - r_{hm} - \sqrt{(r_{jk} - l_1)^2 + (u_2 - r_{hm})^2 - 2c(r_{jk} - l_1)(u_2 - r_{hm})}}
 #' and
 #' \deqn{U = r_{jk} - r_{hm} - \sqrt{(u_1 - r_{jk})^2 + (r_{hm} - l_2)^2 - 2c(u_1 - r_{jk})(r_{hm} - l_2)}}
-#' (Zou, 2007, pp. 409–410), where
+#' (Zou, 2007, pp. 409-410), where
 #' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}
 #' \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}
 #' (Zou, 2007, p. 406),
@@ -138,19 +138,19 @@
 #' \item{conf.int}{The confidence interval of the difference between the two correlations (if method \code{zou2007} is used)}
 #'
 #' @references
-#' Dunn, O. J., & Clark, V. A. (1969). Correlation coefficients measured on the same individuals. \emph{Journal of the American Statistical Association}, \emph{64}, 366–377. doi:10.2307/2283746
+#' Dunn, O. J., & Clark, V. A. (1969). Correlation coefficients measured on the same individuals. \emph{Journal of the American Statistical Association}, \emph{64}, 366-377. doi:10.2307/2283746
 #'
-#' Pearson, K., & Filon, L. N. G. (1898). Mathematical contributions to theory of evolution: IV. On the probable errors of frequency constants and on the influence of random selection and correlation. \emph{Philosophical Transactions of the Royal Society of London, Series A}, \emph{191}, 229–311. doi:10.1098/rsta.1898.0007
+#' Pearson, K., & Filon, L. N. G. (1898). Mathematical contributions to theory of evolution: IV. On the probable errors of frequency constants and on the influence of random selection and correlation. \emph{Philosophical Transactions of the Royal Society of London, Series A}, \emph{191}, 229-311. doi:10.1098/rsta.1898.0007
 #'
-#' Raghunathan, T. E., Rosenthal, R., & Rubin, D. B., (1996). Comparing correlated but nonoverlapping correlations. \emph{Psychological Methods}, \emph{1}, 178–183. doi:10.1037//1082-989X.1.2.178
+#' Raghunathan, T. E., Rosenthal, R., & Rubin, D. B., (1996). Comparing correlated but nonoverlapping correlations. \emph{Psychological Methods}, \emph{1}, 178-183. doi:10.1037//1082-989X.1.2.178
 #'
-#' Silver, N. C., & Dunlap, W. P. (1987). Averaging correlation coefficients: Should Fisher's Z transformation be used? \emph{Journal of Applied Psychology}, \emph{72}, 146–148. doi:10.1037//0021-9010.72.1.146
+#' Silver, N. C., & Dunlap, W. P. (1987). Averaging correlation coefficients: Should Fisher's Z transformation be used? \emph{Journal of Applied Psychology}, \emph{72}, 146-148. doi:10.1037//0021-9010.72.1.146
 #'
-#' Silver, N. C., Hittner, J. B., & May, K. (2004). Testing dependent correlations with nonoverlapping variables: A Monte Carlo simulation. \emph{Journal of Experimental Education}, \emph{73}, 53–69. doi:10.3200/JEXE.71.1.53-70
+#' Silver, N. C., Hittner, J. B., & May, K. (2004). Testing dependent correlations with nonoverlapping variables: A Monte Carlo simulation. \emph{Journal of Experimental Education}, \emph{73}, 53-69. doi:10.3200/JEXE.71.1.53-70
 #'
-#' Steiger, J. H. (1980). Tests for comparing elements of a correlation matrix. \emph{Psychological Bulletin}, \emph{87}, 245–251. doi:10.1037//0033-2909.87.2.245
+#' Steiger, J. H. (1980). Tests for comparing elements of a correlation matrix. \emph{Psychological Bulletin}, \emph{87}, 245-251. doi:10.1037//0033-2909.87.2.245
 #'
-#' Zou, G. Y. (2007). Toward using confidence intervals to compare correlations. \emph{Psychological Methods}, \emph{12}, 399–413. doi:10.1037/1082-989X.12.4.399
+#' Zou, G. Y. (2007). Toward using confidence intervals to compare correlations. \emph{Psychological Methods}, \emph{12}, 399-413. doi:10.1037/1082-989X.12.4.399
 #'
 #' @seealso
 #' \link{cocor.indep.groups}

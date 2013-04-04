@@ -2,12 +2,12 @@ bibentry("Manual",
 		title="cocor: Comparing correlations",
 		author="Birk Diedenhofen",
 		year="2013",
-		note="(Version 0.01-3)",
+		note="(Version 0.01-4)",
 		url="http://r.birkdiedenhofen.de/pckg/cocor/",
 
 		textVersion =
 		paste("Diedenhofen, B. (2013). ",
-				"cocor: Comparing correlations (Version 0.01-3). ",
+				"cocor: Comparing correlations (Version 0.01-4). ",
 				"Available from http://r.birkdiedenhofen.de/pckg/cocor/",
 				sep=""),
 

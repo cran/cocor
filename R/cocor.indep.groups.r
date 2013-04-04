@@ -12,7 +12,7 @@
 #'\item{fisher1925:}{
 #' \emph{Fisher's (1925) z}
 #' 
-#' This significance test was first described in Fisher (1925, pp. 161–168) and its test statistic \eqn{z} is calculated as
+#' This significance test was first described in Fisher (1925, pp. 161-168) and its test statistic \eqn{z} is calculated as
 #' 
 #' \deqn{z = \frac{Z_1 - Z_2}{\sqrt{\frac{1}{n_1 - 3} + \frac{1}{n_2 - 3}}}.}
 #' 
@@ -68,13 +68,13 @@
 #' @references
 #' Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003). \emph{Applied Multiple Regression/Correlation Analysis for the Behavioral Sciences (3rd ed.)}. Mahwah, NJ: Erlbaum.
 #'
-#' Fisher, R. A. (1921). On the probable error of a coefficient of correlation deduced from a small sample. \emph{Metron}, \emph{1}, 1–32.
+#' Fisher, R. A. (1921). On the probable error of a coefficient of correlation deduced from a small sample. \emph{Metron}, \emph{1}, 1-32.
 #'
 #' Fisher, R. A. (1925). \emph{Statistical methods for research workers}. Edinburgh, Scotland: Oliver and Boyd. Retrieved from http://psychclassics.yorku.ca/
 #'
 #' Peters, C. C., & Van Voorhis, W. R. (1940). \emph{Statistical procedures and their mathematical bases}. New York: McGraw-Hill.
 #'
-#' Zou, G. Y. (2007). Toward using confidence intervals to compare correlations. \emph{Psychological Methods}, \emph{12}, 399–413. doi:10.1037/1082-989X.12.4.399
+#' Zou, G. Y. (2007). Toward using confidence intervals to compare correlations. \emph{Psychological Methods}, \emph{12}, 399-413. doi:10.1037/1082-989X.12.4.399
 #'
 #' @seealso
 #' \link{cocor.dep.groups.overlap}

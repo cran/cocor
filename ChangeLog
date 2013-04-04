@@ -1,5 +1,9 @@
 ChangeLog for package cocor
 
+changes in version 0.01-4 (2013-04-04)
+fixed:
+  - Removed all non-ASCII characters from comments and documentation
+
 changes in version 0.01-3 (2013-03-11)
 fixed:
   - Fixed tests to run on the Solaris Sparc platform

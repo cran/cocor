@@ -300,21 +300,21 @@ cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n)
   Boyer, I. E., Palachek, A. D., & Schucany. W. R. (1983).
   An empirical study of related correlation coefficients.
   \emph{Journal of Educational Statistics}, \emph{8},
-  75–86. doi:10.2307/1164871
+  75-86. doi:10.2307/1164871
 
   Dunn, O. J. & Clark, V. A. (1969). Correlation
   coefficients measured on the same individuals.
   \emph{Journal of the American Statistical Association},
-  \emph{64}, 366–377. doi:10.2307/2283746
+  \emph{64}, 366-377. doi:10.2307/2283746
 
   Dunn, O. J. & Clark, V. A. (1971). Comparison of tests of
   the equality of dependent correlation coefficients.
   \emph{Journal of the American Statistical Association},
-  \emph{66}, 904–908. doi:10.2307/2284252
+  \emph{66}, 904-908. doi:10.2307/2284252
 
   Fisher, R. A. (1921). On the probable error of a
   coefficient of correlation deduced from a small sample.
-  \emph{Metron}, \emph{1}, 1–32.
+  \emph{Metron}, \emph{1}, 1-32.
 
   Glass, G. V., & Stanley, J. C. (1970). \emph{Statistical
   methods in eduction and psychology}. Englewood Cliffs,
@@ -327,53 +327,53 @@ cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n)
   Hendrickson, G. F., Stanley J. C., & Hills, J. R. (1970).
   Olkin's new formula for significance of r13 vs. r23
   compared with Hotelling's method. \emph{American
-  Educational Research Journal}, \emph{7}, 189–195.
+  Educational Research Journal}, \emph{7}, 189-195.
   doi:10.2307/1162159
 
   Hendrickson, G. F., & Collins, J. R. (1970). Note
   correcting the results in "Olkin's new formula for the
   significance of r13 vs. r23 compared with Hotelling's
   method". \emph{American Educational Research Journal},
-  \emph{7}, 639–641. doi:10.2307/1161847
+  \emph{7}, 639-641. doi:10.2307/1161847
 
   Hittner, J. B., & May, K. (1998). DEPCORR: A SAS program
   for comparing dependent correlations. Applied
-  Psychological Measurement, 22, 93–94.
+  Psychological Measurement, 22, 93-94.
   doi:10.1177/01466216980221010
 
   Hittner, J. B., May, K., & Silver, N. C. (2003). A Monte
   Carlo evaluation of tests for comparing dependent
   correlations. \emph{The Journal of General Psychology},
-  \emph{130}, 149–168. doi:10.1080/00221300309601282
+  \emph{130}, 149-168. doi:10.1080/00221300309601282
 
   Hotelling, H. (1940). The selection of variates for use
   in prediction, with some comments on the general problem
   of nuisance parameters. \emph{Annals of Mathematical
-  Statistics}, \emph{11}, 271–283.
+  Statistics}, \emph{11}, 271-283.
   doi:10.1214/aoms/1177731867
 
   May, K., & Hittner, J. B., (1997a) - A note on statistics
   for comparing dependent correlations. \emph{Psychological
-  Reports}, \emph{80}, 475–480.
+  Reports}, \emph{80}, 475-480.
   doi:10.2466/pr0.1997.80.2.475
 
   May, K., & Hittner, J. B. (1997b). Tests for comparing
   dependent correlations revisited: A Monte Carlo study.
   \emph{The Journal of Experimental Education}, \emph{65},
-  257–269. doi:10.1080/00220973.1997.9943458
+  257-269. doi:10.1080/00220973.1997.9943458
 
   Meng, X. L., Rosenthal, R., & Rubin, D. B. (1992).
   Comparing correlated correlation coefficients.
-  \emph{Psychological Bulletin}, \emph{111}, 172–175.
+  \emph{Psychological Bulletin}, \emph{111}, 172-175.
   doi:10.1037//0033-2909.111.1.172
 
   Neill, J. J., & Dunn, O. J. (1975). Equality of dependent
   correlation coefficients. \emph{Biometrics}, \emph{31},
-  531–543. doi:10.2307/2529435
+  531-543. doi:10.2307/2529435
 
   Olkin, I. (1967). Correlations revisited. In J. C.
   Stanley (Ed.), \emph{Improving experimental design and
-  statistical analysis} (pp. 102–128). Chicago, IL: Rand
+  statistical analysis} (pp. 102-128). Chicago, IL: Rand
   McNally.
 
   Pearson, K., & Filon, L. N. G. (1898). Mathematical
@@ -381,40 +381,40 @@ cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n)
   errors of frequency constants and on the influence of
   random selection and correlation. \emph{Philosophical
   Transactions of the Royal Society of London, Series A},
-  \emph{191}, 229–311. doi:10.1098/rsta.1898.0007
+  \emph{191}, 229-311. doi:10.1098/rsta.1898.0007
 
   Silver, N. C , & Dunlap, W. P. (1987). Averaging
   correlation coefficients: Should Fisher's Z
   transformation be used? \emph{Journal of Applied
-  Psychology}, \emph{72}, 146–148.
+  Psychology}, \emph{72}, 146-148.
   doi:10.1037//0021-9010.72.1.146
 
   Silver, N. C., Hittner, J. B., & May, K. (2004). Testing
   dependent correlations with nonoverlapping variables: A
   Monte Carlo simulation. \emph{Journal of Experimental
-  Education}, \emph{73}, 53–69. doi:10.3200/JEXE.71.1.53-70
+  Education}, \emph{73}, 53-69. doi:10.3200/JEXE.71.1.53-70
 
   Silver, N. C., Hittner, J. B., & May, K. (2006). A
   FORTRAN 77 program for comparing dependent correlations.
   \emph{Applied Psychological Measurement}, \emph{30},
-  152–153. doi:10.1177/0146621605277132
+  152-153. doi:10.1177/0146621605277132
 
   Steiger, J. H. (1980). Tests for comparing elements of a
   correlation matrix. \emph{Psychological Bulletin},
-  \emph{87}, 245–251. doi:10.1037//0033-2909.87.2.245
+  \emph{87}, 245-251. doi:10.1037//0033-2909.87.2.245
 
   Wilcox, R. R., & Tian, T. (2008). Comparing dependent
   correlations. \emph{The Journal of General Psychology},
-  \emph{135}, 105–112. doi:10.3200/GENP.135.1.105-112
+  \emph{135}, 105-112. doi:10.3200/GENP.135.1.105-112
 
   Williams, E. J. (1959). The comparison of regression
   variables. \emph{Journal of the Royal Statistical
-  Society, Series B}, \emph{21}, 396–399. Retrieved from
+  Society, Series B}, \emph{21}, 396-399. Retrieved from
   http://www.jstor.org/stable/2983809
 
   Zou, G. Y. (2007). Toward using confidence intervals to
   compare correlations. \emph{Psychological Methods},
-  \emph{12}, 399–413. doi:10.1037/1082-989X.12.4.399
+  \emph{12}, 399-413. doi:10.1037/1082-989X.12.4.399
 }
 \seealso{
   \link{cocor.indep.groups}

@@ -36,7 +36,7 @@ test_that("Test fisher1925", {
 
 ## zou2007
 test_that("Test zou2007", {
-  # Zou, G. Y. (2007). Toward Using Conﬁdence Intervals to Compare Correlations. Psychological Methods, 12, 399-413. pp. 406, 409
+  # Zou, G. Y. (2007). Toward Using Confidence Intervals to Compare Correlations. Psychological Methods, 12, 399-413. pp. 406, 409
 
   r <- cocor.indep.groups(.49, .36, 145, 87, method="zou2007")
   expect_that(round(r@zou2007$conf.int, 3), equals(c(-.087,.359)))
@@ -173,7 +173,7 @@ test_that("Test dunn1969", {
 
 ## steiger1980
 test_that("Test steiger1980", {
-  # Steiger, J. H. (1980). Tests for comparing elements of a correlation matrix. Psychological Bulletin, 87, 245–251.
+  # Steiger, J. H. (1980). Tests for comparing elements of a correlation matrix. Psychological Bulletin, 87, 245-251.
   # Case A (p. 249)
 
   r <- cocor.dep.groups.overlap(r.jk=.4, r.jh=.5, r.kh=.1, n=103, method="steiger1980")
@@ -275,7 +275,7 @@ test_that("Test meng1992", {
 
 ## zou2007
 test_that("Test zou2007", {
-  # Zou, G. Y. (2007). Toward Using Conﬁdence Intervals to Compare Correlations. Psychological Methods, 12, 399-413.
+  # Zou, G. Y. (2007). Toward Using Confidence Intervals to Compare Correlations. Psychological Methods, 12, 399-413.
 
   r <- cocor.dep.groups.overlap(.396, .179, .088, 66, method="zou2007")
   expect_that(round(r@zou2007$conf.int, 3), equals(c(-.093,.517)))
@@ -315,7 +315,7 @@ test_that("Test dunn1969", {
 
 ## steiger1980
 test_that("Test steiger1980", {
-  # Steiger, J. H. (1980). Tests for comparing elements of a correlation matrix. Psychological Bulletin, 87, 245–251.
+  # Steiger, J. H. (1980). Tests for comparing elements of a correlation matrix. Psychological Bulletin, 87, 245-251.
   # Case B (p. 249)
 
   # unambiguously reported values: r.jm = .5, r.kh = .5, r.km = .7, n = 103
@@ -355,7 +355,7 @@ test_that("Test silver2004", {
 
 ## zou2007
 test_that("Test zou2007", {
-  # Zou, G. Y. (2007). Toward Using Conﬁdence Intervals to Compare Correlations. Psychological Methods, 12, 399-413.
+  # Zou, G. Y. (2007). Toward Using Confidence Intervals to Compare Correlations. Psychological Methods, 12, 399-413.
   # The correlation between r.jk and r.hm calculated in the paper seems to be incorrect (.0917 instead of .0891), the given formula is, however, correct. The same formula is used in dunn1969 and it also provides .0891.
 
   r <- cocor.dep.groups.nonoverlap(r.jk=.396, r.hm=.189, r.jh=.208, r.kh=.023, r.km=.423, r.jm=.143, n=66, method="zou2007")

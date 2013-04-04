@@ -69,7 +69,7 @@
   \describe{ \item{fisher1925:}{ \emph{Fisher's (1925) z}
 
   This significance test was first described in Fisher
-  (1925, pp. 161–168) and its test statistic \eqn{z} is
+  (1925, pp. 161-168) and its test statistic \eqn{z} is
   calculated as
 
   \deqn{z = \frac{Z_1 - Z_2}{\sqrt{\frac{1}{n_1 - 3} +
@@ -127,7 +127,7 @@ cocor.indep.groups(r1, r2, n1, n2)
 
   Fisher, R. A. (1921). On the probable error of a
   coefficient of correlation deduced from a small sample.
-  \emph{Metron}, \emph{1}, 1–32.
+  \emph{Metron}, \emph{1}, 1-32.
 
   Fisher, R. A. (1925). \emph{Statistical methods for
   research workers}. Edinburgh, Scotland: Oliver and Boyd.
@@ -139,7 +139,7 @@ cocor.indep.groups(r1, r2, n1, n2)
 
   Zou, G. Y. (2007). Toward using confidence intervals to
   compare correlations. \emph{Psychological Methods},
-  \emph{12}, 399–413. doi:10.1037/1082-989X.12.4.399
+  \emph{12}, 399-413. doi:10.1037/1082-989X.12.4.399
 }
 \seealso{
   \link{cocor.dep.groups.overlap}
