@@ -1,4 +1,4 @@
-<!DOCTYPE rkhelp>
+<!DOCTYPE rkhelp >
 <document>
 	<!-- this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
@@ -6,37 +6,29 @@
 		Comparing correlations
 	</title>
 	<summary>
-		Compare two correlation coefficients based on either independent or dependent groups.
+		Compare two correlation coefficients based on either independent or dependent groups (e.g., same group).
 	</summary>
 	<usage>
 	</usage>
-	<!-- <section id="sct_EDITORDE" title="EDIT OR DELETE ME">
-				EDIT OR DELETE ME
-			</section> -->
-	<settings>
-		<setting id="groups">
-			Indicate if the correlations are based on independent or dependent groups.
-		</setting>
-		<setting id="correlations">
-			State whether or not the correlations are overlapping and have one variable in common.
-		</setting>
-		<setting id="test_hypothesis_indep_groups">
-			Select a if the test should be one- or two-sided.
-		</setting>
-		<setting id="data_input">
-			Choose whether you want to type in the values manually or retrieve them from existing variables.
-		</setting>
-		<setting id="manual_indep_groups_frame">
-			Type in the required values or retrieve them from existing variables.
-		</setting>
-	</settings>
-	<!-- <related>
-				<ul>
-					<li>
-						<link href="rkward://rhelp/..." />
-					</li>
-				</ul>
-			</related> -->
-	<technical>
-	</technical>
+	<section id="sct_Step1" title="Step 1">
+		Indicate if the correlations are based on independent or dependent groups.
+	</section>
+	<section id="sct_Step2" title="Step 2">
+		If the correlation are based on dependent groups, state whether or not the correlations are overlapping and have one variable in common.
+	</section>
+	<section id="sct_Step3" title="Step 3">
+		Choose whether you want to calculate the correlations from raw data, type in the correlation coefficients manually, or retrieve them from existing variables.
+	</section>
+	<section id="sct_Step4" title="Step 4">
+		Enter the data.
+	</section>
+	<section id="sct_Step5" title="Step 5">
+		Select an alpha level and a confidence level. Specify the null value, i.e., the hypothesized difference between the two correlations used for testing the null hypothesis. If the null value is other than 0, only the test by Zou (2007) is available.
+	</section>
+	<section id="sct_Step6" title="Step 6">
+		Choose if the test should be one- or two-sided.
+	</section>
+	<section id="sct_Step7" title="Step 7">
+		Copy and paste the generated code to your R script or directly run the code.
+	</section>
 </document>

@@ -1,0 +1,51 @@
+\docType{methods}
+\name{as.htest}
+\alias{as.htest}
+\alias{as.htest,cocor-method}
+\title{Convert to a list of class 'htest'}
+\usage{
+as.htest(x)
+
+## S4 method for the classes 'cocor.indep.groups', 'cocor.dep.groups.overlap', and
+## 'cocor.dep.groups.nonoverlap'
+as.htest(x)
+}
+\arguments{
+  \item{x}{A cocor result object of the classes
+  'cocor.indep.groups', 'cocor.dep.groups.overlap', and
+  'cocor.dep.groups.nonoverlap'.}
+}
+\value{
+  Returns a list containing a list of class 'htest' for the
+  result of each test with the following elements:
+  \item{data.name}{A character string giving the names of
+  the data.} \item{estimate}{The two correlations that have
+  been compared and related correlations.} \item{method}{A
+  character string indicating the test that was
+  performed.} \item{null.value}{The specified hypothesized
+  value of the difference between the two correlations.}
+  \item{alternative}{A character string describing the
+  alternative hypothesis.} \item{parameter}{The degrees of
+  freedom of the distribution of the test statistic.}
+  \item{statistic}{The value of the test statistic.}
+  \item{p.value}{The p-value of the test.}
+  \item{conf.int}{The confidence interval of the difference
+  between the two correlations.}
+}
+\description{
+  Convert a cocor result object of the classes
+  'cocor.indep.groups', 'cocor.dep.groups.overlap', and
+  'cocor.dep.groups.nonoverlap' to a list of class 'htest'.
+}
+\examples{
+data("aptitude")
+
+cocor.result <- cocor(~knowledge + intelligence.a | logic + intelligence.a, aptitude$sample1)
+as.htest(cocor.result)
+}
+\seealso{
+  \link{cocor}, \link{cocor.indep.groups},
+  \link{cocor.dep.groups.overlap},
+  \link{cocor.dep.groups.nonoverlap}
+}
+

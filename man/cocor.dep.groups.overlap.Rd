@@ -3,8 +3,9 @@
 \title{Compare two overlapping correlations based on dependent groups}
 \usage{
   cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n,
-    alternative = "two.sided", method = "all",
-    alpha = 0.05)
+    alternative = "two.sided", test = "all", alpha = 0.05,
+    conf.level = 0.95, null.value = 0, data.name = NULL,
+    var.labels = NULL, return.htest = FALSE)
 }
 \arguments{
   \item{r.jk}{A number specifying the correlation between
@@ -28,41 +29,64 @@
   character strings ("\code{t}", "\code{g}", and
   "\code{l})" can be used.}
 
-  \item{method}{A vector of character strings specifying
-  the methods to be used (\code{pearson1898},
+  \item{test}{A vector of character strings specifying the
+  tests to be used (\code{pearson1898},
   \code{hotelling1940}, \code{hendrickson1970},
   \code{williams1959}, \code{olkin1967}, \code{dunn1969},
   \code{steiger1980}, \code{meng1992}, \code{hittner2003},
-  or \code{zou2007}). Use \code{all} to apply all methods
-  (default). For further information see the method section
+  or \code{zou2007}). Use \code{all} to apply all tests
+  (default). For further information see the tests section
   below.}
 
   \item{alpha}{A number defining the alpha level for the
-  hypothesis test. If method \code{meng1992} or
-  \code{zou2007} is used, \eqn{1 - alpha} is taken as the
-  level of confidence for the confidence interval. The
-  default value is \eqn{.05}.}
+  hypothesis test. The default value is \eqn{.05}.}
+
+  \item{conf.level}{A number defining the level of
+  confidence for the confidence interval (if test
+  \code{meng1992} or \code{zou2007} is used). The default
+  value is \eqn{.95}.}
+
+  \item{null.value}{A number defining the hypothesized
+  difference between the two correlations used for testing
+  the null hypothesis. The default value is \eqn{0}. If the
+  value is other than \eqn{0}, only the test \code{zou2007}
+  that uses a confidence interval is available.}
+
+  \item{data.name}{A character string giving the name(s) of
+  the data. If \code{data.name} is \code{NULL}, the data
+  names of \code{r.jk}, \code{r.jh}, and \code{r.kh} are
+  used.}
+
+  \item{var.labels}{A vector of 3 character strings
+  specifying the labels for j, k, and h (in this order).}
+
+  \item{return.htest}{A logical indicating whether the
+  result should be returned as a list containing a list of
+  class 'htest' for each test. The default value is
+  \code{FALSE}.}
 }
 \value{
-  Returns an object of the class
-  "\code{cocor.dep.groups.overlap}" with the following
-  slots holding the input parameters described above:
-  \item{r.jk}{Input parameter} \item{r.jh}{Input parameter}
-  \item{r.kh}{Input parameter} \item{n}{Input parameter}
-  \item{alternative}{Input parameter} \item{alpha}{Input
-  parameter} For each method a slot of the same name exists
-  with a list containing the following elements:
-  \item{statistic}{The value of the test statistic (unless
-  method \code{zou2007} is used)} \item{distribution}{The
-  distribution of the test statistic (unless method
-  \code{zou2007} is used)} \item{df}{The degrees of freedom
-  of the distribution of the test statistic (if method
-  \code{hotelling1940}, \code{hendrickson1970}, or
-  \code{williams1959} is used)} \item{p.value}{The p-value
-  of the test (unless method \code{zou2007} is used)}
-  \item{conf.int}{The confidence interval of the difference
-  between the two correlations (if method \code{meng1992}
-  or \code{zou2007} is used)}
+  Returns an object of the class 'cocor.dep.groups.overlap'
+  with the following slots holding the input parameters
+  described above: \item{r.jk}{Input parameter}
+  \item{r.jh}{Input parameter} \item{r.kh}{Input parameter}
+  \item{n}{Input parameter} \item{alternative}{Input
+  parameter} \item{alpha}{Input parameter}
+  \item{conf.level}{Input parameter}
+  \item{null.value}{Input parameter} \item{data.name}{Input
+  parameter} \item{var.labels}{Input parameter} For each
+  test a slot of the same name exists with a list
+  containing the following elements: \item{statistic}{The
+  value of the test statistic (unless test \code{zou2007}
+  is used).} \item{distribution}{The distribution of the
+  test statistic (unless test \code{zou2007} is used).}
+  \item{df}{The degrees of freedom of the distribution of
+  the test statistic (if test \code{hotelling1940},
+  \code{hendrickson1970}, or \code{williams1959} is used).}
+  \item{p.value}{The p-value of the test (unless test
+  \code{zou2007} is used).} \item{conf.int}{The confidence
+  interval of the difference between the two correlations
+  (if test \code{meng1992} or \code{zou2007} is used).}
 }
 \description{
   Performs a test of significance for the difference
@@ -75,39 +99,45 @@
   (\code{r.jh}) differ in magnitude. Because the
   significance depends on the intercorrelation between
   \code{k} and \code{h} (r.kh), this intercorrelation has
-  to be provided as an additional parameter.
+  to be provided as an additional parameter. The function
+  expects correlation coefficients as input.
 }
-\section{Methods}{
+\section{Tests}{
   In the following, \eqn{r_{jk}} and \eqn{r_{jh}} are the
   two correlations that are being compared; \eqn{Z_{jk}}
   and \eqn{Z_{jh}} are their \eqn{Z} transformed
   equivalents. \eqn{r_{kh}} is the related correlation that
   is additionally required. \eqn{n} specifies the size of
-  the group the two correlations are based on. Some methods
+  the group the two correlations are based on. Some tests
   make use of Fisher's \eqn{r}-to-\eqn{Z} transformation
   (1921, p. 26):
 
-  \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r)).}
+  \deqn{Z = \frac{1}{2}(ln(1+r) - ln(1-r)).}{Z =
+  (1/2)(ln(1+r) - ln(1-r)).}
 
   \describe{ \item{pearson1898:}{ \emph{Pearson and Filon's
   (1898) z}
 
-  This method was proposed by Pearson and Filon (1898, p.
+  This test was proposed by Pearson and Filon (1898, p.
   259, formula xxxvii). The test statistic \eqn{z} is
   computed as \deqn{z = \frac{\sqrt{n} (r_{jk} -
   r_{jh})}{\sqrt{(1 - r_{jk}^2)^2 + (1 - r_{jh}^2)^2 -
-  2k}}} (Steiger, 1980, p. 246, formula 4), where \deqn{k =
-  r_{kh}(1 - r_{jk}^2 - r_{jh}^2) -
-  \frac{1}{2}(r_{jk}r_{jh})(1 - r_{jk}^2 - r_{jh}^2 -
+  2k}}}{z = (\sqrt(n) (r_{jk} - r_{jh}))/(\sqrt((1 -
+  r_{jk}^2)^2 + (1 - r_{jh}^2)^2 - 2k))} (Steiger, 1980, p.
+  246, formula 4), where \deqn{k = r_{kh}(1 - r_{jk}^2 -
+  r_{jh}^2) - \frac{1}{2}(r_{jk}r_{jh})(1 - r_{jk}^2 -
+  r_{jh}^2 - r_{kh}^2)}{k = r_{kh}(1 - r_{jk}^2 - r_{jh}^2)
+  - (1/2)(r_{jk}r_{jh})(1 - r_{jk}^2 - r_{jh}^2 -
   r_{kh}^2)} (Steiger, 1980, p. 245 formula 3). }
 
   \item{hotelling1940:}{ \emph{Hotelling's (1940) t}
 
   The test statistic \eqn{t} is given by \deqn{t =
   \frac{(r_{jk} - r_{jh})\sqrt{(n - 3)(1 +
-  r_{kh})}}{\sqrt{2|R|}}} (Hotelling, 1940, p. 278, formula
-  7) with \eqn{df = n - 3}, where \deqn{|R| = 1 + 2 r_{jk}
-  r_{jh} r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2}
+  r_{kh})}}{\sqrt{2|R|}}}{t = ((r_{jk} - r_{jh})\sqrt((n -
+  3)(1 + r_{kh})))/(\sqrt(2|R|))} (Hotelling, 1940, p. 278,
+  formula 7) with \eqn{df = n - 3}, where \deqn{|R| = 1 + 2
+  r_{jk} r_{jh} r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2}
   (Hotelling, 1940, p. 278). The test statistic is also
   given in Steiger (1980, p. 246), Glass and Stanley (1984,
   p. 311, formula 15.7), and Hittner, May, and Silver
@@ -115,24 +145,26 @@
 
   \item{williams1959:}{ \emph{Williams' (1959) t}
 
-  This method is a modification of Hotelling's (1940)
-  \eqn{t} and was suggested by Williams (1959). Two
-  mathematically different formulae for Williams' \eqn{t}
-  can be found in the literature (Hittner et al., 2003, p.
-  152). This is the version that Hittner et al. (2003, p.
-  152) labeled as "standard Williams' \eqn{t}": \deqn{t =
-  (r_{jk} - r_{jh})\sqrt{\frac{(n - 1)(1 +
-  r_{kh})}{2(\frac{n - 1}{n - 3})|R|+\bar r^2(1 -
-  r_{kh})^3}}} with \eqn{df = n - 3}, where \deqn{\bar r =
-  \frac{r_{jk} + r_{jh}}{2}} and \deqn{|R| = 1 + 2 r_{jk}
-  r_{jh} r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2.} An
-  alternative formula for Williams' \eqn{t}---termed as
-  "Williams' modified \eqn{t} per Hendrickson, Stanley, and
-  Hills (1970)" by Hittner et al. (2003, p. 152)---is
-  implemented in this function as \code{hendrickson1970}
-  (see below). The test statistic of \code{williams1959} is
-  also given in Steiger (1980, p. 246, formula 7) and Neill
-  and Dunn (1975, p. 533).
+  This test is a modification of Hotelling's (1940) \eqn{t}
+  and was suggested by Williams (1959). Two mathematically
+  different formulae for Williams' \eqn{t} can be found in
+  the literature (Hittner et al., 2003, p. 152). This is
+  the version that Hittner et al. (2003, p. 152) labeled as
+  "standard Williams' \eqn{t}": \deqn{t = (r_{jk} -
+  r_{jh})\sqrt{\frac{(n - 1)(1 + r_{kh})}{2(\frac{n - 1}{n
+  - 3})|R|+\bar r^2(1 - r_{kh})^3}}}{t = (r_{jk} -
+  r_{jh})\sqrt(((n - 1)(1 + r_{kh}))/(2((n - 1)/(n -
+  3))|R|+\bar{r}^2(1 - r_{kh})^3))} with \eqn{df = n - 3},
+  where \deqn{\bar r = \frac{r_{jk} + r_{jh}}{2}}{\bar{r} =
+  (r_{jk} + r_{jh})/2} and \deqn{|R| = 1 + 2 r_{jk} r_{jh}
+  r_{kh} - r_{jk}^2 - r_{jh}^2 - r_{kh}^2.} An alternative
+  formula for Williams' \eqn{t}---termed as "Williams'
+  modified \eqn{t} per Hendrickson, Stanley, and Hills
+  (1970)" by Hittner et al. (2003, p. 152)---is implemented
+  in this function as \code{hendrickson1970} (see below).
+  The test statistic of \code{williams1959} is also given
+  in Steiger (1980, p. 246, formula 7) and Neill and Dunn
+  (1975, p. 533).
 
   Results of \code{williams1959} are in accordance with the
   results of the software DEPCORR by Hittner and May (1998)
@@ -167,74 +199,89 @@
 
   \deqn{z = \frac{(r_{jk} - r_{jh})\sqrt{n}}{\sqrt{(1 -
   r_{jk}^2)^2 + (1 - r_{jh}^2)^2 - 2 r_{kh}^3 - (2 r_{kh} -
-  r_{jk} r_{jh}) (1 - r_{kh}^2 - r_{jk}^2 - r_{jh}^2)}}.} }
+  r_{jk} r_{jh}) (1 - r_{kh}^2 - r_{jk}^2 - r_{jh}^2)}}.}{z
+  = ((r_{jk} - r_{jh})\sqrt(n))/(\sqrt((1 - r_{jk}^2)^2 +
+  (1 - r_{jh}^2)^2 - 2 r_{kh}^3 - (2 r_{kh} - r_{jk}
+  r_{jh}) (1 - r_{kh}^2 - r_{jk}^2 - r_{jh}^2))).} }
 
   \item{dunn1969:}{ \emph{Dunn and Clark's (1969) z}
 
-  The test statistic \eqn{z} of this method is calculated
-  as \deqn{z = \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2
-  - 2c}}} (Dunn and Clark, 1969, p. 370, formula 15), where
+  The test statistic \eqn{z} of this test is calculated as
+  \deqn{z = \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2 -
+  2c}}}{z = ((Z_{jk} - Z_{jh})\sqrt(n - 3))/(\sqrt(2 -
+  2c))} (Dunn and Clark, 1969, p. 370, formula 15), where
   \deqn{c = \frac{r_{kh}(1 - r_{jk}^2 - r_{jh}^2) -
   \frac{1}{2} r_{jk} r_{jh} (1 - r_{jk}^2 - r_{jh}^2 -
-  r_{kh}^2)}{(1 - r_{jk}^2)(1 - r_{jh}^2)}} (Dunn and
-  Clark, 1969, p. 368, formula 8). }
+  r_{kh}^2)}{(1 - r_{jk}^2)(1 - r_{jh}^2)}}{c = (r_{kh}(1 -
+  r_{jk}^2 - r_{jh}^2) - (1/2) r_{jk} r_{jh} (1 - r_{jk}^2
+  - r_{jh}^2 - r_{kh}^2))/((1 - r_{jk}^2)(1 - r_{jh}^2))}
+  (Dunn and Clark, 1969, p. 368, formula 8). }
 
   \item{hendrickson1970:}{ \emph{Hendrickson, Stanley, and
   Hills' (1970) modification of Williams' (1959) t}
 
-  This method is a modification of Hotelling's (1940)
-  \eqn{t} and was suggested by Williams (1959). Two
-  mathematically different formulae of Williams' (1959)
-  \eqn{t} can be found in the literature.
-  \code{hendrickson1970} is the version that Hittner et al.
-  (2003, p. 152) labeled as "Williams' modified \eqn{t} per
-  Hendrickson, Stanley, and Hills (1970)". An alternative
-  formula termed as "standard Williams' \eqn{t}" by Hittner
-  et al. (2003, p. 152) is implemented as
-  \code{williams1959} (see above). The
+  This test is a modification of Hotelling's (1940) \eqn{t}
+  and was suggested by Williams (1959). Two mathematically
+  different formulae of Williams' (1959) \eqn{t} can be
+  found in the literature. \code{hendrickson1970} is the
+  version that Hittner et al. (2003, p. 152) labeled as
+  "Williams' modified \eqn{t} per Hendrickson, Stanley, and
+  Hills (1970)". An alternative formula termed as "standard
+  Williams' \eqn{t}" by Hittner et al. (2003, p. 152) is
+  implemented as \code{williams1959} (see above). The
   \code{hendrickson1970} formula can be found in
   Hendrickson, Stanley, and Hills (1970, p. 193), May and
   Hittner (1997a, p. 259; 1997b, p. 480), and Hittner et
   al. (2003, p. 152): \deqn{t = \frac{(r_{jk} -
   r_{jh})\sqrt{(n - 3)(1 +
   r_{kh})}}{\sqrt{2|R|+\frac{(r_{jk} - r_{jh})^2(1 -
-  r_{kh})^3}{4(n - 1)}}}} with \eqn{df = n - 3}. A slightly
-  changed version of this formula was provided by Dunn and
-  Clark (1971, p. 905, formula 1.2), but seems to be
-  erroneous, due to an error in the denominator. }
+  r_{kh})^3}{4(n - 1)}}}}{t = ((r_{jk} - r_{jh})\sqrt((n -
+  3)(1 + r_{kh})))/(\sqrt(2|R|+\((r_{jk} - r_{jh})^2(1 -
+  r_{kh})^3)/(4(n - 1))))} with \eqn{df = n - 3}. A
+  slightly changed version of this formula was provided by
+  Dunn and Clark (1971, p. 905, formula 1.2), but seems to
+  be erroneous, due to an error in the denominator. }
 
   \item{steiger1980:}{ \emph{Steiger's (1980) modification
   of Dunn and Clark's (1969) z using average correlations}
 
-  This method was proposed by Steiger (1980) and is a
+  This test was proposed by Steiger (1980) and is a
   modification of Dunn and Clark's (1969) \eqn{z}. Instead
   of \eqn{r_{jk}} and \eqn{r_{jh}}, the mean of the two is
   used. The test statistic \eqn{z} is defined as \deqn{z =
-  \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}}
-  (Steiger 1980, p. 247, formula 14), where \deqn{\bar r =
-  \frac{r_{jk} + r_{jh}}{2}} (Steiger, 1980, p. 247) and
-  \deqn{c = \frac{r_{kh}(1 - 2\bar r^2) - \frac{1}{2}\bar
-  r^2(1 - 2\bar r^2 - r_{kh}^2)}{(1 - \bar r^2)^2}}
-  (Steiger ,1980, p. 247, formula 10; in the original
-  article, there are brackets missing around the divisor).
-  }
+  \frac{(Z_{jk} - Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}}{z =
+  ((Z_{jk} - Z_{jh})\sqrt(n - 3))/(\sqrt(2 - 2c))} (Steiger
+  1980, p. 247, formula 14), where \deqn{\bar r =
+  \frac{r_{jk} + r_{jh}}{2}}{\bar{r} = (r_{jk} + r_{jh})/2}
+  (Steiger, 1980, p. 247) and \deqn{c = \frac{r_{kh}(1 -
+  2\bar r^2) - \frac{1}{2}\bar r^2(1 - 2\bar r^2 -
+  r_{kh}^2)}{(1 - \bar r^2)^2}}{c = (r_{kh}(1 - 2\bar{r}^2)
+  - (1/2)\bar{r}^2(1 - 2\bar{r}^2 - r_{kh}^2))/((1 -
+  \bar{r}^2)^2)} (Steiger ,1980, p. 247, formula 10; in the
+  original article, there are brackets missing around the
+  divisor). }
 
   \item{meng1992:}{ \emph{Meng, Rosenthal, and Rubin's
   (1992) z}
 
-  This method is based on the test statistic \eqn{z},
-  \deqn{z = (Z_{jk} - Z_{jh}) \sqrt{\frac{n - 3}{2(1 -
-  r_{kh})h}},} (Meng et al., 1992, p. 173, formula 1),
-  where \deqn{h = \frac{1 - f\overline {r^2}}{1 - \overline
-  {r^2}}} (Meng et al., 1992, p. 173, formula 2), \deqn{f =
-  \frac{1 - r_{kh}}{2(1 - \overline {r^2})}} (\eqn{f} must
-  be \eqn{\le 1}; Meng et al., 1992, p. 173, formula 3),
-  and \deqn{\overline {r^2} = \frac{r_{jk}^2 +
-  r_{jh}^2}{2}} (Meng et al., 1992, p. 173). This method
-  also provides a confidence interval of the difference
-  between the two correlation coefficients \eqn{r_{jk}} and
-  \eqn{r_{jh}}: \deqn{L, U = Z_{jk} - Z_{jk} \pm
-  z_{\frac{\alpha}{2}} \sqrt{\frac{2(1 - r_{kh})h}{n - 3}}}
+  This test is based on the test statistic \eqn{z}, \deqn{z
+  = (Z_{jk} - Z_{jh}) \sqrt{\frac{n - 3}{2(1 -
+  r_{kh})h}},}{z = (Z_{jk} - Z_{jh}) \sqrt((n - 3)/(2(1 -
+  r_{kh})h),} (Meng et al., 1992, p. 173, formula 1), where
+  \deqn{h = \frac{1 - f\overline{r^2}}{1 -
+  \overline{r^2}}}{h = (1 - f\overline{r^2})/(1 -
+  \overline{r^2})} (Meng et al., 1992, p. 173, formula 2),
+  \deqn{f = \frac{1 - r_{kh}}{2(1 - \overline{r^2})}}{f =
+  (1 - r_{kh})/(2(1 - \overline{r^2}))} (\eqn{f} must be
+  \eqn{\le 1}; Meng et al., 1992, p. 173, formula 3), and
+  \deqn{\overline{r^2} = \frac{r_{jk}^2 +
+  r_{jh}^2}{2}}{\overline{r^2} = (r_{jk}^2 + r_{jh}^2)/2}
+  (Meng et al., 1992, p. 173). This test also constructs a
+  confidence interval of the difference between the two
+  correlation coefficients \eqn{r_{jk}} and \eqn{r_{jh}}:
+  \deqn{L, U = Z_{jk} - Z_{jk} \pm z_{\frac{\alpha}{2}}
+  \sqrt{\frac{2(1 - r_{kh})h}{n - 3}}}{L, U = Z_{jk} -
+  Z_{jk} +- z_{\alpha/2} \sqrt((2(1 - r_{kh})h)/(n - 3))}
   (Meng et al., 1992, p. 173, formula 4). \eqn{\alpha}
   denotes the desired alpha level of the confidence
   interval. If the confidence interval includes zero, the
@@ -249,40 +296,53 @@
   The approach to backtransform averaged Fisher's (1921)
   \eqn{Z}s was first proposed by Silver and Dunlap (1987)
   and was applied to the comparison of overlapping
-  correlations by Hittner et al. (2003). The method is
-  based on Steiger's (1980) approach. The test statistic
-  \eqn{z} is calculated as \deqn{z = \frac{(Z_{jk} -
-  Z_{jh})\sqrt{n - 3}}{\sqrt{2 - 2c}}} (Hittner et al.,
-  2003, p. 153), where \deqn{c = \frac{r_{kh}(1 - 2\bar
-  r_z^2) - \frac{1}{2}\bar r_z^2(1 - 2\bar r_z^2 -
-  r_{kh}^2)}{(1 - \bar r_z^2)^2}} (Hittner et al., 2003, p.
-  153), \deqn{\bar r_z = \frac{exp(2\bar Z - 1)}{exp(2\bar
-  Z + 1)}} (Silver and Dunlap, 1987, p. 146, formula 4),
-  and \deqn{\bar Z = \frac{Z_{jk} + Z_{jh}}{2}} (Silver and
-  Dunlap, 1987, p. 146). }
+  correlations by Hittner et al. (2003). The test is based
+  on Steiger's (1980) approach. The test statistic \eqn{z}
+  is calculated as \deqn{z = \frac{(Z_{jk} - Z_{jh})\sqrt{n
+  - 3}}{\sqrt{2 - 2c}}}{z = ((Z_{jk} - Z_{jh})\sqrt(n -
+  3))/(\sqrt(2 - 2c))} (Hittner et al., 2003, p. 153),
+  where \deqn{c = \frac{r_{kh}(1 - 2\bar r_z^2) -
+  \frac{1}{2}\bar r_z^2(1 - 2\bar r_z^2 - r_{kh}^2)}{(1 -
+  \bar r_z^2)^2}}{c = (r_{kh}(1 - 2\bar{r}_z^2) -
+  (1/2)\bar{r}_z^2(1 - 2\bar{r}_z^2 - r_{kh}^2))/((1 -
+  \bar{r}_z^2)^2)} (Hittner et al., 2003, p. 153),
+  \deqn{\bar r_z = \frac{exp(2\bar Z - 1)}{exp(2\bar Z +
+  1)}}{\bar{r}_z = (exp(2\bar{Z} - 1))/(exp(2\bar{Z} + 1))}
+  (Silver and Dunlap, 1987, p. 146, formula 4), and
+  \deqn{\bar Z = \frac{Z_{jk} + Z_{jh}}{2}}{\bar{Z} =
+  (Z_{jk} + Z_{jh})/2} (Silver and Dunlap, 1987, p. 146). }
 
   \item{zou2007:}{ \emph{Zou's (2007) confidence interval}
 
-  This method calculates the confidence interval of the
+  This test calculates the confidence interval of the
   difference between the two correlation coefficients
   \eqn{r_{jk}} and \eqn{r_{jh}}. If the confidence interval
   includes zero, the null hypothesis that the two
-  correlations are equal must be retained. If zero is
-  outside the confidence interval, the null hypothesis can
-  be rejected. A lower and upper bound for the interval
-  (\eqn{L} and \eqn{U}, respectively) is given by \deqn{L =
-  r_{jk} - r_{jh} - \sqrt{(r_{jk} - l_1)^2 + (u_2 -
-  r_{jh})^2 - 2c(r_{jk} - l_1)(u_2 - r_{jh})}} and \deqn{U
-  = r_{jk} - r_{jh} - \sqrt{(u_1 - r_{jk})^2 + (r_{jh} -
-  l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2)}} (Zou, 2007, p.
-  409), where \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}
-  \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}} (Zou, 2007,
-  p. 406), \deqn{c = \frac{(r_{kh} - \frac{1}{2} r_{jk}
-  r_{jh})(1 - r_{jk}^2- r_{jh}^2- r_{kh}^2) + r_{kh}^3}{(1
-  - r_{jk}^2)(1 - r_{jh}^2)}} (Zou, 2007, p. 409), and
+  correlations are equal must be retained. If the
+  confidence interval does not include zero, the null
+  hypothesis has to be rejected. A lower and upper bound
+  for the interval (\eqn{L} and \eqn{U}, respectively) is
+  given by \deqn{L = r_{jk} - r_{jh} - \sqrt{(r_{jk} -
+  l_1)^2 + (u_2 - r_{jh})^2 - 2c(r_{jk} - l_1)(u_2 -
+  r_{jh})}}{L = r_{jk} - r_{jh} - \sqrt((r_{jk} - l_1)^2 +
+  (u_2 - r_{jh})^2 - 2c(r_{jk} - l_1)(u_2 - r_{jh}))} and
+  \deqn{U = r_{jk} - r_{jh} - \sqrt{(u_1 - r_{jk})^2 +
+  (r_{jh} - l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2)}}{U =
+  r_{jk} - r_{jh} - \sqrt((u_1 - r_{jk})^2 + (r_{jh} -
+  l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2))} (Zou, 2007, p.
+  409), where \deqn{l = \frac{exp(2l') - 1}{exp(2l') +
+  1},}{l = (exp(2l') - 1)/(exp(2l') + 1),} \deqn{u =
+  \frac{exp(2u') - 1}{exp(2u') + 1}}{u = (exp(2u') -
+  1)/(exp(2u') + 1)} (Zou, 2007, p. 406), \deqn{c =
+  \frac{(r_{kh} - \frac{1}{2} r_{jk} r_{jh})(1 - r_{jk}^2-
+  r_{jh}^2- r_{kh}^2) + r_{kh}^3}{(1 - r_{jk}^2)(1 -
+  r_{jh}^2)}}{c = ((r_{kh} - (1/2) r_{jk} r_{jh})(1 -
+  r_{jk}^2- r_{jh}^2- r_{kh}^2) + r_{kh}^3)/((1 -
+  r_{jk}^2)(1 - r_{jh}^2))} (Zou, 2007, p. 409), and
   \deqn{l',u' = Z \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n
-  - 3}}} (Zou, 2007, p. 406). \eqn{\alpha} denotes the
-  desired alpha level of the confidence interval. }
+  - 3}}}{l',u' = Z +- z_{\alpha/2} \sqrt(1/(n - 3))} (Zou,
+  2007, p. 406). \eqn{\alpha} denotes the desired alpha
+  level of the confidence interval. }
 
   }
 }
@@ -294,7 +354,7 @@ r.jh <- .5  # Correlation (age, shoe size)
 r.kh <- .1  # Correlation (intelligence, shoe size)
 n <- 315  # Size of the group
 
-cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n)
+cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n, var.labels=c("age", "intelligence", "shoe size"))
 }
 \references{
   Boyer, I. E., Palachek, A. D., & Schucany. W. R. (1983).
@@ -417,8 +477,7 @@ cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n)
   \emph{12}, 399-413. doi:10.1037/1082-989X.12.4.399
 }
 \seealso{
-  \link{cocor.indep.groups}
-
-  \link{cocor.dep.groups.nonoverlap}
+  \link{cocor}, \link{cocor.indep.groups},
+  \link{cocor.dep.groups.nonoverlap}, \link{as.htest}
 }
 

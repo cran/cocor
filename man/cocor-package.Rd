@@ -1,6 +1,5 @@
 \docType{package}
 \name{cocor-package}
-\alias{cocor}
 \alias{cocor-package}
 \title{The cocor Package}
 \description{
@@ -8,8 +7,8 @@
 }
 \details{
   \tabular{ll}{ Package: \tab cocor\cr Type: \tab
-  Package\cr Version: \tab 0.01-4\cr Date: \tab
-  2013-04-04\cr Depends: \tab methods\cr Enhances: \tab
+  Package\cr Version: \tab 1.0-0\cr Date: \tab
+  2013-08-01\cr Depends: \tab methods\cr Enhances: \tab
   rkward\cr Encoding: \tab UTF-8\cr License: \tab GPL (>=
   3)\cr LazyLoad: \tab yes\cr URL: \tab
   http://r.birkdiedenhofen.de/pckg/cocor/\cr }

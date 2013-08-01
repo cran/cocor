@@ -3,8 +3,8 @@
 #' \tabular{ll}{
 #' Package: \tab cocor\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.01-4\cr
-#' Date: \tab 2013-04-04\cr
+#' Version: \tab 1.0-0\cr
+#' Date: \tab 2013-08-01\cr
 #' Depends: \tab methods\cr
 #' Enhances: \tab rkward\cr
 #' Encoding: \tab UTF-8\cr
@@ -15,7 +15,7 @@
 #'
 #' This package provides functions to compare two correlations based on either dependent or independent groups.
 #'
-#' @aliases cocor-package cocor
+#' @aliases cocor-package
 #' @name cocor-package
 #' @docType package
 #' @title The cocor Package

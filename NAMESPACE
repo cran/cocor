@@ -1,4 +1,6 @@
+export(cocor)
 export(cocor.dep.groups.nonoverlap)
 export(cocor.dep.groups.overlap)
 export(cocor.indep.groups)
+exportMethods(as.htest)
 import(methods)

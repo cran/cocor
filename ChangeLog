@@ -1,6 +1,29 @@
 ChangeLog for package cocor
 
-changes in version 0.01-4 (2013-04-04)
+changes in version 1.0-0 (2013-08-01)
+added:
+  - Added the function cocor() which calculates and compares correlations
+    from raw data.
+  - Added the argument conf.level to the functions cocor(),
+    cocor.indep.groups(), cocor.dep.groups.overlap(), and cocor.dep.groups.nonoverlap() to
+    define the level of confidence for the confidence interval.
+  - Added the argument null.value to the functions cocor(),
+    cocor.indep.groups(), cocor.dep.groups.overlap(), and cocor.dep.groups.nonoverlap() to test
+    whether the difference between the correlations exceeds a given threshold.
+  - Added the function as.htest() to convert the cocor result classes to a
+    list of class 'htest'.
+  - Added the argument return.htest to the functions cocor(),
+    cocor.indep.groups(), cocor.dep.groups.overlap(), and cocor.dep.groups.nonoverlap() to
+    return the results as a list of class 'htest'.
+  - Added the argument data.name to the functions cocor.indep.groups(),
+    cocor.dep.groups.overlap(), and cocor.dep.groups.nonoverlap() to specify a name
+    that describes the data.
+  - Added the argument var.labels to the functions cocor.indep.groups(),
+    cocor.dep.groups.overlap(), and cocor.dep.groups.nonoverlap() to add labels to
+    the variables j, k, h, and m.
+  - Added the data set 'aptitude'.
+
+changes in version 0.01-4 (2013-06-12)
 fixed:
   - Removed all non-ASCII characters from comments and documentation
 
