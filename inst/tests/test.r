@@ -29,23 +29,68 @@ test_that("Invalid formulas are rejected", {
   expect_that(validate.formula(~ a + b | c + c), equals(FALSE))
 })
 
-expect_error(cocor(~a + b | c + d, 1:4), "The parameter 'data' must be")
-expect_error(cocor(~a + b | c + d, list(1,2)), "The parameter 'data' must be")
-expect_error(cocor(~a + b | c + d + e, list(data.frame(1),data.frame(1))), "For correlations based on independent groups, the parameter 'formula' must be")
-expect_error(cocor(~a + b | c + d + e, data.frame(1)), "For correlations based on dependent groups, the parameter 'formula' must be")
-expect_error(cocor(~a + b | a + b, data.frame(1)), "For correlations based on dependent groups, the parameter 'formula' must be")
+test_that("Invalid data are rejected", {
+  expect_error(cocor(~a + b | c + d, 1:4), "The parameter 'data' must be")
+  expect_error(cocor(~a + b | c + d, list(1,2)), "The parameter 'data' must be")
+  expect_error(cocor(~a + b | c + d + e, list(data.frame(1),data.frame(1))), "For correlations based on independent groups, the parameter 'formula' must be")
+  expect_error(cocor(~a + b | c + d + e, data.frame(1)), "For correlations based on dependent groups, the parameter 'formula' must be")
+  expect_error(cocor(~a + b | a + b, data.frame(1)), "For correlations based on dependent groups, the parameter 'formula' must be")
 
-expect_error(cocor(~a + b | a + b, list(data.frame(a=1:2,c=3:4),data.frame(a=1:2,b=3:4))), "Could not find column 'b' .* first")
-expect_error(cocor(~a + b | a + b, list(data.frame(a=1:2,b=3:4),data.frame(a=1:2,c=3:4))), "Could not find column 'b' .* second")
-expect_error(cocor(~a + b | a + c, data.frame(a=1:2,c=3:4)), "Could not find column 'b'")
+  expect_error(cocor(~a + b | a + b, list(data.frame(a=1:2,c=3:4),data.frame(a=1:2,b=3:4))), "Could not find column 'b' .* first")
+  expect_error(cocor(~a + b | a + b, list(data.frame(a=1:2,b=3:4),data.frame(a=1:2,c=3:4))), "Could not find column 'b' .* second")
+  expect_error(cocor(~a + b | a + c, data.frame(a=1:2,c=3:4)), "Could not find column 'b'")
 
-expect_error(cocor(~a + b | a + c, data.frame(a=1:2,b=3:4,c=c(1,Inf))), "All elements of the variable 'c' must be finite")
-expect_error(cocor(~a + b | a + c, data.frame(a=1:2,b=c("1","2"))), "The variable 'b' must be numeric")
+  expect_error(cocor.indep.groups(Inf, .82, 60, 60), "The parameter 'r1.jk' must be finite")
+  expect_error(cocor.indep.groups(.92, .82, -Inf, 60), "The parameter 'n1' must be finite")
+  expect_error(cocor(~a + b | a + c, data.frame(a=1:2,b=c("1","2"))), "The variable 'b' must be numeric")
+})
 
-expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name="foo"), "foo")
-expect_output(cocor.indep.groups(.92, .82, 60, 50, var.labels=c("foo", "bar", "bay", "baz")), "bar")
-expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name="foo", var.labels=c("foo", "bar", "bay", "baz")), "Data: foo; j")
-expect_output(cocor(~Fertility + Agriculture | Fertility + Examination, swiss), "Data: swiss; j: Fertility, k: Agriculture, h: Examination")
+test_that("Missing data is handled correctly", {
+  expect_error(cocor.indep.groups(NA, .82, 60, 60), "The parameter 'r1.jk' is NA")
+  expect_error(cocor.dep.groups.overlap(.82, .60, .3, NA), "The parameter 'n' is NA")
+  expect_error(cocor.dep.groups.nonoverlap(.6, NA,.8,.82, .60, .1, 60), "The parameter 'r.hm' is NA")
+
+
+  # cocor.dep.groups.overlap
+  d <- swiss
+  r <- cocor(~Fertility + Agriculture | Fertility + Examination, d, na.action="na.omit")
+  expect_that(r@n, equals(47))
+
+  d[1:10, "Agriculture"] <- NA # set 10 cases in column to NA
+
+  expect_error(cocor(~Fertility + Agriculture | Fertility + Examination, d, na.action="na.fail"), "missing values in object")
+
+  r <- cocor(~Fertility + Agriculture | Fertility + Examination, d, na.action="na.omit")
+  expect_that(r@n, equals(37))
+
+  d[1:nrow(d), "Agriculture"] <- NA # set whole column to NA
+
+  expect_error(cocor(~Fertility + Agriculture | Fertility + Examination, d, na.action="na.omit"), "No cases left in the data set after running na.action")
+
+
+  # cocor.indep.groups
+  d2 <- list(swiss, swiss)
+  d2[[1]][1:10, "Agriculture"] <- NA # set 10 cases in column to NA
+
+  expect_error(cocor(~Fertility + Agriculture | Fertility + Examination, d2, na.action="na.fail"), "missing values in object")
+
+  r <- cocor(~Fertility + Agriculture | Fertility + Examination, d2, na.action="na.omit")
+  expect_that(r@n1, equals(37))
+
+  d2[[1]][1:nrow(d), "Agriculture"] <- NA # et whole column to NA
+
+  expect_error(cocor(~Fertility + Agriculture | Fertility + Examination, d2, na.action="na.omit"), "No cases left in the first data set after running na.action")
+})
+
+test_that("Output is correct", {
+  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name="foo"), "Data: foo")
+  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name=c("foo", "bar")), "Data: foo; bar")
+  expect_output(cocor.indep.groups(.92, .82, 60, 50, var.labels=c("foo", "bar", "bay", "baz")), "bar")
+  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name="mydata", var.labels=c("foo", "bar", "bay", "baz")), "Data: mydata: j = foo, k = bar, h = bay, m = baz")
+  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name=c("data1", "data2"), var.labels=c("foo", "bar", "bay", "baz")), "Data: data1: j = foo, k = bar; data2: h = bay, m = baz")
+  expect_output(cocor(~Fertility + Agriculture | Fertility + Examination, swiss), "Data: swiss: j = Fertility, k = Agriculture, h = Examination")
+  expect_output(cocor(~a + b | c + d, list(dataset1=data.frame(a=1:3,b=1:3),dataset2=data.frame(c=2:4,d=2:4))), "Data: dataset1: j = a, k = b; dataset2: h = c, m = d")
+})
 
 
 ##====================##
@@ -174,6 +219,7 @@ test_that("Test hendrickson1970", {
   # May, K., & Hittner, J. B. (1997). A note on statistics for comparing dependent correlations. Psychological Reports, 80, 475-480. p. 477
 
   r <- cocor.dep.groups.overlap(.5, .2, .3, 50, test="hendrickson1970")
+  expect_that(r@hendrickson1970$distribution, equals("t"))
   expect_that(round(r@hendrickson1970$statistic, 2), equals(2.01))
 })
 

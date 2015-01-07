@@ -49,12 +49,14 @@ validate.alternative <- function(alternative) {
 }
 
 validate.numeric <- function(x, name, type="number") {
-  if(!is.finite(x)) stop(paste("The parameter '", name, "' must be finite", sep=""))
+  if(any(is.na(x))) stop(paste("The parameter '", name, "' is NA", sep=""))
+  if(any(is.infinite(x))) stop(paste("The parameter '", name, "' must be finite", sep=""))
   if(!is(x, "numeric") || length(x) != 1 || (type == "integer" && x %% 1 != 0)) stop(paste("The parameter '", name, "' must be a single ", type, sep=""))
 }
 
 validate.character <- function(x, name, vector.length) {
-  if(!is(x, "character") || length(x) != vector.length) stop(paste("The parameter '", name, "' must be a vector of ", vector.length, " character strings", sep=""))
+  if(any(is.na(x))) stop(paste("The parameter '", name, "' is NA", sep=""))
+  if(!is(x, "character") || !(length(x) %in% vector.length)) stop(paste("The parameter '", name, "' must be a vector of ", paste(vector.length, collapse=" or "), " character strings", sep=""))
 }
 
 validate.numeric.range <- function(x, name, lower, upper) {
@@ -134,17 +136,11 @@ paste.test.statistic <- function(object, test, r1.name=NULL, r2.name=NULL) {
 }
 
 data.description <- function(data.name, var.labels) {
-  data.name <- {
-    if(!is.null(data.name) && length(data.name) > 0) data.name
-    else NULL
+  if(length(data.name) < 2) { # cocor.dep.groups.overlap, cocor.dep.groups.nonoverlap
+    paste(data.name, if(length(data.name) == 1 && length(var.labels) > 0) ": ", if(length(var.labels) > 0) paste(c("j", "k", "h", "m")[1:length(var.labels)], " = ", var.labels, collapse=", ", sep=""), sep="")
+  } else if(length(data.name) == 2) { # cocor.indep.groups
+    paste(data.name[1], if(length(var.labels) > 0) paste(": ", paste(c("j", "k"), " = ", var.labels[1:2], collapse=", ", sep=""), sep=""), "; ", data.name[2], if(length(var.labels) > 0) paste(": ", paste(c("h", "m"), " = ", var.labels[3:4], collapse=", ", sep=""), sep=""), sep="")
   }
-
-  var.labels <- {
-    if(!is.null(var.labels) && length(var.labels) > 0) paste(c("j", "k", "h", "m")[1:length(var.labels)], ": ", var.labels, collapse=", ", sep="")
-    else NULL
-  }
-
-  paste(data.name, if(!is.null(data.name) && !is.null(var.labels)) "; ", var.labels, sep="")
 }
 
 paste.data.description <- function(data.name, var.labels) {
@@ -159,6 +155,7 @@ setClass("cocor.indep.groups", # class for result object of cocor.indep.groups()
     n1="numeric",
     r2.hm="numeric",
     n2="numeric",
+    diff="numeric",
     alternative="character",
     test="character",
     alpha="numeric",
@@ -174,7 +171,8 @@ setClass("cocor.indep.groups", # class for result object of cocor.indep.groups()
 setMethod("show", "cocor.indep.groups",
   function(object) {
     cat("\n  Results of a comparison of two correlations based on independent groups\n\n",
-    "Comparison between r1.jk = ", round(object@r1.jk,4), " and r2.hm = ", round(object@r2.hm,4), "\n",
+    "Comparison between r1.jk ", if(length(object@var.labels) > 0) paste("(", object@var.labels[1], ", ", object@var.labels[2], ") ", sep=""), "= ", round(object@r1.jk,4), " and r2.hm ", if(length(object@var.labels) > 0) paste("(", object@var.labels[3], ", ", object@var.labels[4], ") ", sep=""), "= ", round(object@r2.hm,4), "\n",
+    "Difference: r1.jk - r2.hm = ", round(object@diff,4), "\n",
     paste.data.description(object@data.name, object@var.labels),
     "Group sizes: n1 = ", object@n1, ", n2 = ", object@n2, "\n",
     paste.hypotheses(object@alternative, "r1.jk", "r2.hm", object@null.value), "\n",
@@ -194,6 +192,7 @@ setClass("cocor.dep.groups.overlap", # class for result object of cocor.dep.grou
     r.jh="numeric",
     r.kh="numeric",
     n="numeric",
+    diff="numeric",
     alternative="character",
     test="character",
     alpha="numeric",
@@ -218,7 +217,8 @@ setMethod("show", "cocor.dep.groups.overlap",
   function(object) {
     cat(
       "\n  Results of a comparison of two overlapping correlations based on dependent groups\n\n",
-      "Comparison between r.jk = ", round(object@r.jk,4), " and r.jh = ", round(object@r.jh,4), "\n",
+      "Comparison between r.jk ", if(length(object@var.labels) > 0) paste("(", object@var.labels[1], ", ", object@var.labels[2], ") ", sep=""), "= ", round(object@r.jk,4), " and r.jh ", if(length(object@var.labels) > 0) paste("(", object@var.labels[1], ", ", object@var.labels[3], ") ", sep=""), "= ", round(object@r.jh,4), "\n",
+      "Difference: r.jk - r.jh = ", round(object@diff,4), "\n",
       "Related correlation: r.kh = ", round(object@r.kh,4), "\n",
       paste.data.description(object@data.name, object@var.labels),
       "Group size: n = ", object@n, "\n",
@@ -243,6 +243,7 @@ setClass("cocor.dep.groups.nonoverlap", # class for result object of cocor.dep.g
     r.kh="numeric",
     r.km="numeric",
     n="numeric",
+    diff="numeric",
     alternative="character",
     test="character",
     alpha="numeric",
@@ -263,7 +264,8 @@ setMethod("show", "cocor.dep.groups.nonoverlap",
   function(object) {
     cat(
       "\n  Results of a comparison of two nonoverlapping correlations based on dependent groups\n\n",
-      "Comparison between r.jk = ", round(object@r.jk,4), " and r.hm = ", round(object@r.hm,4), "\n",
+      "Comparison between r.jk ", if(length(object@var.labels) > 0) paste("(", object@var.labels[1], ", ", object@var.labels[2], ") ", sep=""), "= ", round(object@r.jk,4), " and r.hm ", if(length(object@var.labels) > 0) paste("(", object@var.labels[3], ", ", object@var.labels[4], ") ", sep=""), "= ", round(object@r.hm,4), "\n",
+      "Difference: r.jk - r.hm = ", round(object@diff,4), "\n",
       "Related correlations: r.jh = ", round(object@r.jh,4), ", r.jm = ", round(object@r.jm,4),", r.kh = ", round(object@r.kh,4), ", r.km = ", round(object@r.km,4), "\n",
       paste.data.description(object@data.name, object@var.labels),
       "Group size: n = ", object@n, "\n",

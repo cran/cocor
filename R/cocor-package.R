@@ -1,24 +1,24 @@
-#' Comparing correlations.
+#' Comparing Correlations.
 #'
 #' \tabular{ll}{
 #' Package: \tab cocor\cr
 #' Type: \tab Package\cr
-#' Version: \tab 1.0-0\cr
-#' Date: \tab 2013-08-01\cr
+#' Version: \tab 1.1-0\cr
+#' Date: \tab 2015-01-07\cr
 #' Depends: \tab methods\cr
-#' Enhances: \tab rkward\cr
+#' Enhances: \tab RKWard\cr
 #' Encoding: \tab UTF-8\cr
 #' License: \tab GPL (>= 3)\cr
 #' LazyLoad: \tab yes\cr
-#' URL: \tab http://r.birkdiedenhofen.de/pckg/cocor/\cr
+#' URL: \tab http://comparingcorrelations.org\cr
 #' }
 #'
-#' This package provides functions to compare two correlations based on either dependent or independent groups.
+#' Statistical tests for the comparison between two correlations based on either independent or dependent groups. Dependent correlations can either be overlapping or nonoverlapping. A web interface is available at http://comparingcorrelations.org. A plugin for RKWard is included. RKWard can be obtained freely from http://rkward.sf.net.
 #'
 #' @aliases cocor-package
 #' @name cocor-package
 #' @docType package
 #' @title The cocor Package
-#' @author Birk Diedenhofen \email{mail@@birkdiedenhofen.de}
+#' @author Birk Diedenhofen
 #' @keywords package
 NULL

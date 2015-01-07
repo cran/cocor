@@ -10,7 +10,7 @@
 #'\describe{
 ### fisher1925
 #'\item{fisher1925:}{
-#' \emph{Fisher's (1925) z}
+#'\emph{Fisher's (1925) z}
 #' 
 #' This significance test was first described in Fisher (1925, pp. 161-168) and its test statistic \eqn{z} is calculated as
 #' 
@@ -23,7 +23,7 @@
 #'
 ### zou2007
 #'\item{zou2007:}{
-#' \emph{Zou's (2007) confidence interval}
+#'\emph{Zou's (2007) confidence interval}
 #'
 #' This test calculates the confidence interval of the difference between the two correlation coefficients \eqn{r_1} and \eqn{r_2}.
 #' If the confidence interval includes zero, the null hypothesis that the two correlations are equal must be retained.
@@ -48,16 +48,16 @@
 #' @param r2.hm A number specifying the correlation between h and m measured in group 2
 #' @param n1 An integer defining the size of group 1
 #' @param n2 An integer defining the size of group 2
-#' @param alternative A character string specifying whether the alternative hypothesis is two-sided ("\code{two.sided}"; default) or one-sided ( "\code{greater}" or "\code{less}", depending on the direction). Optionally, the initial letter of the character strings ("\code{t}", "\code{g}", and "\code{l})" can be used.
+#' @param alternative A character string specifying whether the alternative hypothesis is two-sided ("\code{two.sided}"; default) or one-sided ("\code{greater}" or "\code{less}", depending on the direction). Optionally, the initial letter of the character strings ("\code{t}", "\code{g}", and "\code{l})" can be used.
 #' @param test A vector of character strings specifying the tests to be used (\code{fisher1925} or \code{zou2007}). Use \code{all} to apply all tests (default). For further information see the tests section below.
 #' @param alpha A number defining the alpha level for the hypothesis test. The default value is \eqn{.05}.
 #' @param conf.level A number defining the level of confidence for the confidence interval (if test \code{zou2007} is used). The default value is \eqn{.95}.
 #' @param null.value A number defining the hypothesized difference between the two correlations used for testing the null hypothesis. The default value is \eqn{0}. If the value is other than \eqn{0}, only the test \code{zou2007} that uses a confidence interval is available.
-#' @param data.name A character string giving the name(s) of the data. If \code{data.name} is \code{NULL}, the data names of \code{r1.jk} and \code{r2.hm} are used.
-#' @param var.labels A vector of 4 character strings specifying the labels for j, k, h, and m (in this order).
+#' @param data.name A vector of character strings describing the data/groups. The vector may contain one character string to describe both data sets/groups or two character strings to describe each data set/group separately.
+#' @param var.labels A vector of four character strings specifying the labels for j, k, h, and m (in this order).
 #' @param return.htest A logical indicating whether the result should be returned as a list containing a list of class 'htest' for each test. The default value is \code{FALSE}.
 #'
-#' @return Returns an object of the class 'cocor.indep.groups' with the following slots holding the input parameters described above:
+#' @return Returns an S4 object of class 'cocor.indep.groups' with the following slots:
 #' \item{r1.jk}{Input parameter}
 #' \item{r2.hm}{Input parameter}
 #' \item{n1}{Input parameter}
@@ -68,6 +68,7 @@
 #' \item{null.value}{Input parameter}
 #' \item{data.name}{Input parameter}
 #' \item{var.labels}{Input parameter}
+#' \item{diff}{Difference between the two correlations, r1.jk and r2.hm, that were compared}
 #' For each test a slot of the same name exists with a list containing the following elements:
 #' \item{statistic}{The value of the test statistic (if test \code{fisher1925} is used).}
 #' \item{distribution}{The distribution of the test statistic (if test \code{fisher1925} is used).}
@@ -97,7 +98,7 @@
 #' r2.hm <- .6  # Correlation between age and intelligence measured in group 2
 #' n2 <- 210    # Size of group 2
 #'
-#' cocor.indep.groups(r1.jk, r2.hm, n1, n2, var.labels=c("age", "intelligence", "age", "intelligence"))
+#' cocor.indep.groups(r1.jk, r2.hm, n1, n2, data.name=c("group1", "group2"), var.labels=c("age", "intelligence", "age", "intelligence"))
 #'
 #' @export
 cocor.indep.groups <- function(r1.jk, r2.hm, n1, n2, alternative="two.sided", test="all", alpha=.05, conf.level=.95, null.value=0, data.name=NULL, var.labels=NULL, return.htest=FALSE) {
@@ -131,12 +132,15 @@ cocor.indep.groups <- function(r1.jk, r2.hm, n1, n2, alternative="two.sided", te
     alternative=alternative,
     alpha=alpha,
     conf.level=conf.level,
-    null.value=null.value
+    null.value=null.value,
+    diff=r1.jk - r2.hm
   )
+
   if(!is.null(data.name)) {
-    validate.character(data.name, "data.name", 1)
+    validate.character(data.name, "data.name", 1:2)
     result@data.name <- data.name
   }
+
   if(!is.null(var.labels)) {
     validate.character(var.labels, "var.labels", 4)
     result@var.labels <- var.labels

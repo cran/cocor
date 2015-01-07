@@ -117,16 +117,16 @@
 #' @param r.kh A number specifying the correlation between \eqn{k} and \eqn{h}
 #' @param r.km A number specifying the correlation between \eqn{k} and \eqn{m}
 #' @param n An integer defining the size of the group
-#' @param alternative A character string specifying whether the alternative hypothesis is two-sided ("\code{two.sided}"; default) or one-sided ( "\code{greater}" or "\code{less}", depending on the direction). Optionally, the initial letter of the character strings ("\code{t}", "\code{g}", and "\code{l})" can be used.
+#' @param alternative A character string specifying whether the alternative hypothesis is two-sided ("\code{two.sided}"; default) or one-sided ("\code{greater}" or "\code{less}", depending on the direction). Optionally, the initial letter of the character strings ("\code{t}", "\code{g}", and "\code{l})" can be used.
 #' @param test A vector of character strings specifying the tests to be used (\code{pearson1898}, \code{dunn1969}, \code{steiger1980}, \code{raghunathan1996}, \code{silver2004}, or \code{zou2007}). Use \code{all} to apply all tests (default). For further information see the tests section below.
 #' @param alpha A number defining the alpha level for the hypothesis test. The default value is \eqn{.05}.
 #' @param conf.level A number defining the level of confidence for the confidence interval (if test \code{zou2007} is used). The default value is \eqn{.95}.
 #' @param null.value A number defining the hypothesized difference between the two correlations used for testing the null hypothesis. The default value is \eqn{0}. If the value is other than \eqn{0}, only the test \code{zou2007} that uses a confidence interval is available.
-#' @param data.name A character string giving the name(s) of the data. If \code{data.name} is \code{NULL}, the data names of \code{r.jk}, \code{r.hm}, \code{r.jh}, \code{r.jm}, \code{r.kh}, and \code{r.km} are used.
-#' @param var.labels A vector of 4 character strings specifying the labels for j, k, h, and m (in this order).
+#' @param data.name A character string giving the name of the data/group.
+#' @param var.labels A vector of four character strings specifying the labels for j, k, h, and m (in this order).
 #' @param return.htest A logical indicating whether the result should be returned as a list containing a list of class 'htest' for each test. The default value is \code{FALSE}.
 #'
-#' @return Returns an object of the class 'cocor.dep.groups.nonoverlap' with the following slots holding the input parameters described above:
+#' @return Returns an S4 object of class 'cocor.dep.groups.nonoverlap' with the following slots:
 #' \item{r.jk}{Input parameter}
 #' \item{r.hm}{Input parameter}
 #' \item{r.jh}{Input parameter}
@@ -140,6 +140,7 @@
 #' \item{null.value}{Input parameter}
 #' \item{data.name}{Input parameter}
 #' \item{var.labels}{Input parameter}
+#' \item{diff}{Difference between the two correlations, r.jk and r.hm, that were compared}
 #' For each test a slot of the same name exists with a list containing the following elements:
 #' \item{statistic}{The value of the test statistic (unless test \code{zou2007} is used).}
 #' \item{distribution}{The distribution of the test statistic (unless test \code{zou2007} is used).}
@@ -175,7 +176,8 @@
 #' r.km <- .3  # Correlation (intelligence, shoe size)
 #' n <- 232  # Size of the group
 #'
-#' cocor.dep.groups.nonoverlap(r.jk, r.hm, r.jh, r.jm, r.kh, r.km, n, var.labels=c("age", "intelligence", "body mass index", "shoe size"))
+#' cocor.dep.groups.nonoverlap(r.jk, r.hm, r.jh, r.jm, r.kh, r.km, n,
+#' var.labels=c("age", "intelligence", "body mass index", "shoe size"))
 #'
 #' @export
 cocor.dep.groups.nonoverlap <- function(r.jk, r.hm, r.jh, r.jm, r.kh, r.km, n, alternative="two.sided", test="all", alpha=.05, conf.level=.95, null.value=0, data.name=NULL, var.labels=NULL, return.htest=FALSE) {
@@ -210,12 +212,15 @@ cocor.dep.groups.nonoverlap <- function(r.jk, r.hm, r.jh, r.jm, r.kh, r.km, n, a
     test=test,
     alpha=alpha,
     conf.level=conf.level,
-    null.value=null.value
+    null.value=null.value,
+    diff=r.jk - r.hm
   )
+
   if(!is.null(data.name)) {
     validate.character(data.name, "data.name", 1)
     result@data.name <- data.name
   }
+
   if(!is.null(var.labels)) {
     validate.character(var.labels, "var.labels", 4)
     result@var.labels <- var.labels

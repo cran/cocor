@@ -7,7 +7,8 @@
 Sample dataset: aptitude
 }
 \description{
-Data of two samples of testees who completed an aptitude test consisting of general knowledge questions, logic tasks, and two measures of intelligence.
+Data of two samples of testees who completed an aptitude test consisting of general knowledge questions,
+      logic tasks, and two measures of intelligence.
 }
 \usage{data("aptitude")}
 \format{

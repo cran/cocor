@@ -17,9 +17,9 @@
 		name="cocor"
 		shortinfo="Comparison of two correlations based on either dependent or independent groups."
 		longinfo="Comparison of two correlations based on either dependent or independent groups."
-		version="1.0-0"
-		releasedate="2013-09-05"
-		url="http://r.birkdiedenhofen.de/pckg/cocor/"
+		version="1.1-0"
+		releasedate="2015-01-07"
+		url="http://comparingcorrelations.org"
 		license="GPL"
 	>
 		<author 

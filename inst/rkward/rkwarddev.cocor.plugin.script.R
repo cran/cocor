@@ -10,9 +10,9 @@ local({
     author=person(given="Birk", family="Diedenhofen", email="mail@birkdiedenhofen.de", role=c("aut","cre")),
     about=list(
       desc="Comparison of two correlations based on either dependent or independent groups.",
-      version="1.0-0",
-      date=Sys.Date(),
-      url="http://r.birkdiedenhofen.de/pckg/cocor/",
+      version="1.1-0",
+      date="2015-01-07",
+      url="http://comparingcorrelations.org",
       license="GPL"
     )
   )

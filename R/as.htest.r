@@ -1,15 +1,8 @@
 #' Convert to a list of class 'htest'
 #'
-#' Convert a cocor result object of the classes 'cocor.indep.groups', 'cocor.dep.groups.overlap', or 'cocor.dep.groups.nonoverlap' to a list of class 'htest'.
+#' Convert a cocor result object of class 'cocor.indep.groups', 'cocor.dep.groups.overlap', or 'cocor.dep.groups.nonoverlap' to a list of class 'htest'.
 #'
-# \usage{
-# as.htest(x)
-#
-# ## S4 method for the classes 'cocor.indep.groups', 'cocor.dep.groups.overlap', and 'cocor.dep.groups.nonoverlap'.
-# as.htest(x)
-# }
-#'
-#' @param x A cocor result object of the classes 'cocor.indep.groups', 'cocor.dep.groups.overlap', or 'cocor.dep.groups.nonoverlap'.
+#' @param result.object A cocor result object of class 'cocor.indep.groups', 'cocor.dep.groups.overlap', or 'cocor.dep.groups.nonoverlap'.
 #'
 #' @return Returns a list containing a list of class 'htest' for the result of each test with the following elements:
 #' \item{data.name}{A character string giving the names of the data.}
@@ -31,44 +24,42 @@
 #' cocor.result <- cocor(~knowledge + intelligence.a | logic + intelligence.a, aptitude$sample1)
 #' as.htest(cocor.result)
 #'
-#' @noRd
 #' @docType methods
-#' @exportMethod as.htest
 #' @rdname as.htest
-setGeneric("as.htest", function(x) standardGeneric("as.htest"))
+#' @export
+setGeneric("as.htest", function(result.object) standardGeneric("as.htest"))
 
-#' @noRd
 #' @aliases as.htest,cocor-method
 #' @include 0helper.r
 #' @rdname as.htest
 setMethod("as.htest", "cocor",
-  function(x) {
+  function(result.object) {
     htest.list <- list()
     for(test in names(all.tests)) {
-      if(.hasSlot(x, test)) {
-        r <- slot(x, test)
+      if(.hasSlot(result.object, test)) {
+        test.object <- slot(result.object, test)
 
-        conf.int <- r$conf.int
-        if(!is.null(conf.int)) attr(conf.int, "conf.level") <- x@conf.level
+        conf.int <- test.object$conf.int
+        if(!is.null(conf.int)) attr(conf.int, "conf.level") <- result.object@conf.level
 
-        statistic <- r$statistic
-        names(statistic) <- r$distribution
+        statistic <- test.object$statistic
+        names(statistic) <- test.object$distribution
 
-        estimate <- switch(class(x),
-          cocor.indep.groups=c(r1.jk=x@r1.jk, r2.hm=x@r2.hm),
-          cocor.dep.groups.overlap=c(r.jk=x@r.jk, r.jh=x@r.jh, r.kh=x@r.kh),
-          cocor.dep.groups.nonoverlap=c(r.jk=x@r.jk, r.hm=x@r.hm, r.jh=x@r.jh, r.jm=x@r.jm, r.kh=x@r.kh, r.km=x@r.km)
+        estimate <- switch(class(result.object),
+          cocor.indep.groups=c(r1.jk=result.object@r1.jk, r2.hm=result.object@r2.hm),
+          cocor.dep.groups.overlap=c(r.jk=result.object@r.jk, r.jh=result.object@r.jh, r.kh=result.object@r.kh),
+          cocor.dep.groups.nonoverlap=c(r.jk=result.object@r.jk, r.hm=result.object@r.hm, r.jh=result.object@r.jh, r.jm=result.object@r.jm, r.kh=result.object@r.kh, r.km=result.object@r.km)
         )
 
         htest <- list(
           statistic=statistic,
-          parameter=c(df=r$df),
-          p.value=r$p.value,
+          parameter=c(df=test.object$df),
+          p.value=test.object$p.value,
           estimate=estimate,
-          null.value=c("difference in correlations"=x@null.value),
-          alternative=x@alternative,
+          null.value=c("difference in correlations"=result.object@null.value),
+          alternative=result.object@alternative,
           method=all.tests[[test]],
-          data.name=data.description(x@data.name, x@var.labels),
+          data.name=data.description(result.object@data.name, result.object@var.labels),
           conf.int=conf.int
         )
         class(htest) <- "htest"

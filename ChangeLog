@@ -1,5 +1,20 @@
 ChangeLog for package cocor
 
+changes in version 1.1-0 (2015-01-07)
+added:
+  - Added the difference between the two correlations that were compared to
+    the result object and the output.
+  - If the correlations are based on two data sets, display the names of both
+    data sets in the output.
+  - For each of the two correlations that were compared, display the names of
+    the variables in the output.
+  - Display error message if arguments of the functions cocor.indep.groups(),
+    cocor.dep.groups.overlap(), and cocor.dep.groups.nonoverlap() are NA.
+changed:
+  - Added 'na.action' argument to handle missing data in the cocor() function
+    (similar to the cor.test() function) instead of passing the 'use'
+    argument to the cor() function.
+
 changes in version 1.0-0 (2013-08-01)
 added:
   - Added the function cocor() which calculates and compares correlations

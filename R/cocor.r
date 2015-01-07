@@ -18,15 +18,15 @@
 #'
 #' @param formula A formula specifying the correlations and their underlying variables (See details).
 #' @param data A list holding two data.frames/matrices for independent groups or a single data.frame/matrix for dependent groups that contain the variables specified in \code{formula} as columns.
-#' @param use A character string giving a test for computing covariances in the presence of missing values. This must be (an abbreviation of) one of the strings "everything", "all.obs", "complete.obs", "na.or.complete", or "pairwise.complete.obs" (see \link[stats:cor]{cor} in package \link[stats]{stats}).
 #' @param alternative A character string specifying whether the alternative hypothesis is two-sided ("\code{two.sided}"; default) or one-sided ( "\code{greater}" or "\code{less}", depending on the direction). Optionally, the initial letter of the character strings ("\code{t}", "\code{g}", and "\code{l})" can be used.
 #' @param test For the tests available, see \link{cocor.indep.groups}, \link{cocor.dep.groups.overlap}, and \link{cocor.dep.groups.nonoverlap}. Use \code{all} to apply all tests (default).
+#' @param na.action A function which handles missing data. Defaults to \code{\link{getOption}("na.action")}. See \link{na.omit} for more options.
 #' @param alpha A number defining the alpha level for the hypothesis test. The default value is \eqn{.05}.
 #' @param conf.level A number defining the level of confidence for the confidence interval (if a test is used that calculates confidence intervals). The default value is \eqn{.95}.
 #' @param null.value A number defining the hypothesized difference between the two correlations used for testing the null hypothesis. The default value is \eqn{0}. If the value is other than \eqn{0}, only the test \code{zou2007} that uses a confidence interval is available.
 #' @param return.htest A logical indicating whether the result should be returned as a list containing a list of class 'htest' for each test. The default value is \code{FALSE}.
 #'
-#' @return Returns an object of the class 'cocor.indep.groups', 'cocor.dep.groups.overlap', or 'cocor.dep.groups.nonoverlap' depending on the invoked comparison function.
+#' @return Returns an object of class 'cocor.indep.groups', 'cocor.dep.groups.overlap', or 'cocor.dep.groups.nonoverlap' depending on the invoked comparison function.
 #'
 #' @seealso
 #' \link{cocor.indep.groups}, \link{cocor.dep.groups.overlap}, \link{cocor.dep.groups.nonoverlap}, \link{as.htest}
@@ -49,7 +49,7 @@
 #' cocor(~knowledge + intelligence.b | logic + intelligence.a, aptitude$sample1, return.htest=TRUE)
 #'
 #' @export
-cocor <- function(formula, data, use="everything", alternative="two.sided", test="all", alpha=.05, conf.level=.95, null.value=0, return.htest=FALSE) {
+cocor <- function(formula, data, alternative="two.sided", test="all", na.action=getOption("na.action"), alpha=.05, conf.level=.95, null.value=0, return.htest=FALSE) {
   if(!(is(data, "data.frame") || is(data, "matrix") || (is(data, "list") && length(data) == 2 && (is(data[[1]], "data.frame") || is(data[[1]], "matrix")) && (is(data[[2]], "data.frame") || is(data[[2]], "matrix"))))) stop("The parameter 'data' must be a data.frame/matrix for correlations based on dependent groups or a list containing two data.frames/matrices for correlations based on two independent groups") # validate data format
 
   valid.formula <- validate.formula(formula) # validate formula
@@ -89,36 +89,48 @@ cocor <- function(formula, data, use="everything", alternative="two.sided", test
     }
 
     if(!(get(x) %in% colnames(data.test))) stop(paste("Could not find column '", get(x), "' in the ", class(data.test), " that is provided by the parameter 'data'", if(i > 0) paste(" as the ", switch(i, "first", "second"), " element in the list", sep=""), sep=""))
-    if(any(!is.finite(data.test[,get(x)]))) stop(paste("All elements of the variable '", get(x), "' must be finite", sep=""))
     if(!is.numeric(data.test[,get(x)])) stop(paste("The variable '", get(x), "' must be numeric", sep=""))
   }
 
+  # data name
   data.name <- deparse(substitute(data),width.cutoff=200,nlines=1)
+  if(comparison.case == "indep.groups" && length(names(data)) == 2) data.name <- names(data)
+
+  # handle missing data
+  if(comparison.case == "indep.groups") { # indep.groups
+    for(i in 1:2) {
+      data[[i]] <- do.call(na.action, list(object=data[[i]]))
+      if(nrow(data[[i]]) == 0) stop(paste0("No cases left in the ", switch(i, "first", "second"), " data set after running na.action", sep=""))
+    }
+  } else { # dep.groups.overlap, dep.groups.nonoverlap
+    data <- do.call(na.action, list(object=data))
+    if(nrow(data) == 0) stop("No cases left in the data set after running na.action")
+  }
 
   switch(comparison.case, # calculate correlations and pass them to the comparison functions
     indep.groups={
-      r1.jk <- cor(data[[1]][,j], data[[1]][,k], use = use)
-      r2.hm <- cor(data[[2]][,h], data[[2]][,m], use = use)
+      r1.jk <- cor(data[[1]][,j], data[[1]][,k])
+      r2.hm <- cor(data[[2]][,h], data[[2]][,m])
       n1 <- nrow(data[[1]])
       n2 <- nrow(data[[2]])
       var.labels <- c(j, k, h, m)
       cocor.indep.groups(r1.jk, r2.hm, n1, n2, alternative, test, alpha, conf.level, null.value, data.name, var.labels, return.htest)
     },
     dep.groups.overlap={
-      r.jk <- cor(data[,j], data[,k], use = use)
-      r.jh <- cor(data[,j], data[,h], use = use)
-      r.kh <- cor(data[,k], data[,h], use = use)
+      r.jk <- cor(data[,j], data[,k])
+      r.jh <- cor(data[,j], data[,h])
+      r.kh <- cor(data[,k], data[,h])
       n <- nrow(data)
       var.labels <- c(j, k, h)
       cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n, alternative, test, alpha, conf.level, null.value, data.name, var.labels, return.htest)
     },
     dep.groups.nonoverlap={
-      r.jk <- cor(data[,j], data[,k], use = use)
-      r.hm <- cor(data[,h], data[,m], use = use)
-      r.jh <- cor(data[,j], data[,h], use = use)
-      r.jm <- cor(data[,j], data[,m], use = use)
-      r.kh <- cor(data[,k], data[,h], use = use)
-      r.km <- cor(data[,k], data[,m], use = use)
+      r.jk <- cor(data[,j], data[,k])
+      r.hm <- cor(data[,h], data[,m])
+      r.jh <- cor(data[,j], data[,h])
+      r.jm <- cor(data[,j], data[,m])
+      r.kh <- cor(data[,k], data[,h])
+      r.km <- cor(data[,k], data[,m])
       n <- nrow(data)
       var.labels <- c(j, k, h, m)
       cocor.dep.groups.nonoverlap(r.jk, r.hm, r.jh, r.jm, r.kh, r.km, n, alternative, test, alpha, conf.level, null.value, data.name, var.labels, return.htest)
