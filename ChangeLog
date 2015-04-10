@@ -1,5 +1,15 @@
 ChangeLog for package cocor
 
+changes in version 1.1-1 (2015-04-10)
+changed:
+  - Fixed exclusion of missing data: na.action is now only performed on
+    variables that are used to calculate the correlations.
+  - Fixed typographical error in documentation of Zou's (2007) confidence
+    intervals
+  - Changed citation information
+added:
+  - Added parameter validation for the return.htest parameter.
+
 changes in version 1.1-0 (2015-01-07)
 added:
   - Added the difference between the two correlations that were compared to

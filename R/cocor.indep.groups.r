@@ -31,7 +31,7 @@
 #' A lower and upper bound for the interval (\eqn{L} and \eqn{U}, respectively) is given by
 #' \deqn{L = r_1 - r_2 - \sqrt{(r_1 - l_1)^2 + (u_2 - r_2)^2}}{L = r_1 - r_2 - \sqrt((r_1 - l_1)^2 + (u_2 - r_2)^2)}
 #' and
-#' \deqn{U = r_1 - r_2 - \sqrt{(u_1 - r_1)^2 + (r_2 - l_2)^2}}{U = r_1 - r_2 - \sqrt((u_1 - r_1)^2 + (r_2 - l_2)^2)}
+#' \deqn{U = r_1 - r_2 + \sqrt{(u_1 - r_1)^2 + (r_2 - l_2)^2}}{U = r_1 - r_2 + \sqrt((u_1 - r_1)^2 + (r_2 - l_2)^2)}
 #' (Zou, 2007, p. 409).
 #' A lower and upper bound for the confidence interval of \eqn{r_1} (\eqn{l_1} and \eqn{u_1}) and \eqn{r_2} (\eqn{l_2} and \eqn{u_2}) are calculated as
 #' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}{l = (exp(2l') - 1)/(exp(2l') + 1),}
@@ -145,6 +145,8 @@ cocor.indep.groups <- function(r1.jk, r2.hm, n1, n2, alternative="two.sided", te
     validate.character(var.labels, "var.labels", 4)
     result@var.labels <- var.labels
   }
+
+  validate.logical(return.htest, "return.htest")
 
   for(x in test) {
     switch(x,

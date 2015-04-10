@@ -10,8 +10,8 @@ Comparing Correlations.
 \tabular{ll}{
 Package: \tab cocor\cr
 Type: \tab Package\cr
-Version: \tab 1.1-0\cr
-Date: \tab 2015-01-07\cr
+Version: \tab 1.1-1\cr
+Date: \tab 2015-04-10\cr
 Depends: \tab methods\cr
 Enhances: \tab RKWard\cr
 Encoding: \tab UTF-8\cr
@@ -20,7 +20,7 @@ LazyLoad: \tab yes\cr
 URL: \tab http://comparingcorrelations.org\cr
 }
 
-Statistical tests for the comparison between two correlations based on either independent or dependent groups. Dependent correlations can either be overlapping or nonoverlapping. A web interface is available at http://comparingcorrelations.org. A plugin for RKWard is included. RKWard can be obtained freely from http://rkward.sf.net.
+Statistical tests for the comparison between two correlations based on either independent or dependent groups. Dependent correlations can either be overlapping or nonoverlapping. A web interface is available at http://comparingcorrelations.org. A plugin for 'RKWard' is included. 'RKWard' can be obtained freely from https://rkward.kde.org.
 }
 \author{
 Birk Diedenhofen

@@ -56,6 +56,11 @@ test_that("Missing data is handled correctly", {
   r <- cocor(~Fertility + Agriculture | Fertility + Examination, d, na.action="na.omit")
   expect_that(r@n, equals(47))
 
+  d[1:10, "Catholic"] <- NA # set 10 cases in column to NA
+
+  r <- cocor(~Fertility + Agriculture | Fertility + Examination, d, na.action="na.omit")
+  expect_that(r@n, equals(47))
+
   d[1:10, "Agriculture"] <- NA # set 10 cases in column to NA
 
   expect_error(cocor(~Fertility + Agriculture | Fertility + Examination, d, na.action="na.fail"), "missing values in object")

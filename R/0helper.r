@@ -59,6 +59,11 @@ validate.character <- function(x, name, vector.length) {
   if(!is(x, "character") || !(length(x) %in% vector.length)) stop(paste("The parameter '", name, "' must be a vector of ", paste(vector.length, collapse=" or "), " character strings", sep=""))
 }
 
+validate.logical <- function(x, name) {
+  if(!is.null(x) && any(is.na(x))) stop(paste("The parameter '", name, "' is NA", sep=""))
+  if(!is(x, "logical")) stop(paste("The parameter '", name, "' must be a logical", sep=""))
+}
+
 validate.numeric.range <- function(x, name, lower, upper) {
   if(x < lower || x > upper) stop(paste("The parameter '", name, "' must be a single number between ", lower, " and ", upper, sep=""))
 }

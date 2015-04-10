@@ -241,7 +241,7 @@ If the confidence interval does not include zero, the null hypothesis has to be 
 A lower and upper bound for the interval (\eqn{L} and \eqn{U}, respectively) is given by
 \deqn{L = r_{jk} - r_{jh} - \sqrt{(r_{jk} - l_1)^2 + (u_2 - r_{jh})^2 - 2c(r_{jk} - l_1)(u_2 - r_{jh})}}{L = r_{jk} - r_{jh} - \sqrt((r_{jk} - l_1)^2 + (u_2 - r_{jh})^2 - 2c(r_{jk} - l_1)(u_2 - r_{jh}))}
 and
-\deqn{U = r_{jk} - r_{jh} - \sqrt{(u_1 - r_{jk})^2 + (r_{jh} - l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2)}}{U = r_{jk} - r_{jh} - \sqrt((u_1 - r_{jk})^2 + (r_{jh} - l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2))}
+\deqn{U = r_{jk} - r_{jh} + \sqrt{(u_1 - r_{jk})^2 + (r_{jh} - l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2)}}{U = r_{jk} - r_{jh} + \sqrt((u_1 - r_{jk})^2 + (r_{jh} - l_2)^2 - 2c(u_1 - r_{jk})(r_{jh} - l_2))}
 (Zou, 2007, p. 409), where
 \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}{l = (exp(2l') - 1)/(exp(2l') + 1),}
 \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}{u = (exp(2u') - 1)/(exp(2u') + 1)}

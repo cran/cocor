@@ -1,14 +1,12 @@
-bibentry("Manual",
-    title="cocor: Comparing Correlations",
-    author="Birk Diedenhofen",
+bibentry("Article",
+    author="Diedenhofen, Birk AND Musch, Jochen",
     year="2015",
-    note="(Version 1.1-0)",
-    url="http://comparingcorrelations.org",
-
-    textVersion =
-    paste("Diedenhofen, B. (2015). ",
-        "cocor: Comparing Correlations (Version 1.1-0). ",
-        "Available from http://comparingcorrelations.org",
-        sep=""),
-
+    title="cocor: A Comprehensive Solution for the Statistical Comparison of Correlations",
+    journal="PLoS ONE",
+    volume="10",
+    number="4",
+    pages="e0121945",
+    doi="10.1371/journal.pone.0121945",
+    url="http://dx.doi.org/10.1371%2Fjournal.pone.0121945",
+    publisher="Public Library of Science",
     mheader = "To cite cocor in publications use:")

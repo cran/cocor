@@ -96,6 +96,20 @@ cocor <- function(formula, data, alternative="two.sided", test="all", na.action=
   data.name <- deparse(substitute(data),width.cutoff=200,nlines=1)
   if(comparison.case == "indep.groups" && length(names(data)) == 2) data.name <- names(data)
 
+  # remove columns from data that are not required
+  switch(comparison.case,
+    indep.groups={
+      data[[1]] <- data[[1]][,c(j,k)]
+      data[[2]] <- data[[2]][,c(h,m)]
+    },
+    dep.groups.overlap={
+      data <- data[,c(j,k,h)]
+    },
+    dep.groups.nonoverlap={
+      data <- data[,c(j,k,h,m)]
+    }
+  )
+
   # handle missing data
   if(comparison.case == "indep.groups") { # indep.groups
     for(i in 1:2) {

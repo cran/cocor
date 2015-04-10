@@ -94,7 +94,7 @@
 #' A lower and upper bound for the interval (\eqn{L} and \eqn{U}, respectively) is given by
 #' \deqn{L = r_{jk} - r_{hm} - \sqrt{(r_{jk} - l_1)^2 + (u_2 - r_{hm})^2 - 2c(r_{jk} - l_1)(u_2 - r_{hm})}}{L = r_{jk} - r_{hm} - \sqrt((r_{jk} - l_1)^2 + (u_2 - r_{hm})^2 - 2c(r_{jk} - l_1)(u_2 - r_{hm}))}
 #' and
-#' \deqn{U = r_{jk} - r_{hm} - \sqrt{(u_1 - r_{jk})^2 + (r_{hm} - l_2)^2 - 2c(u_1 - r_{jk})(r_{hm} - l_2)}}{U = r_{jk} - r_{hm} - \sqrt((u_1 - r_{jk})^2 + (r_{hm} - l_2)^2 - 2c(u_1 - r_{jk})(r_{hm} - l_2))}
+#' \deqn{U = r_{jk} - r_{hm} + \sqrt{(u_1 - r_{jk})^2 + (r_{hm} - l_2)^2 - 2c(u_1 - r_{jk})(r_{hm} - l_2)}}{U = r_{jk} - r_{hm} + \sqrt((u_1 - r_{jk})^2 + (r_{hm} - l_2)^2 - 2c(u_1 - r_{jk})(r_{hm} - l_2))}
 #' (Zou, 2007, pp. 409-410), where
 #' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}{l = (exp(2l') - 1)/(exp(2l') + 1),}
 #' \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}{u = (exp(2u') - 1)/(exp(2u') + 1)}
@@ -225,6 +225,8 @@ cocor.dep.groups.nonoverlap <- function(r.jk, r.hm, r.jh, r.jm, r.kh, r.km, n, a
     validate.character(var.labels, "var.labels", 4)
     result@var.labels <- var.labels
   }
+
+  validate.logical(return.htest, "return.htest")
 
   for(x in test) {
     switch(x,
