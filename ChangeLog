@@ -1,5 +1,11 @@
 ChangeLog for package cocor
 
+changes in version 1.1-2 (2015-10-17)
+changed:
+  - Fixed hypothesis interpretation error that occured when testing one-sided
+    ('less') using confidence intervals
+  - Fixed typographical errors in documentation
+
 changes in version 1.1-1 (2015-04-10)
 changed:
   - Fixed exclusion of missing data: na.action is now only performed on

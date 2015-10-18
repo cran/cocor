@@ -1,4 +1,4 @@
-#' @import methods
+#' @import methods stats
 
 fisher.r2z <- function(r) 0.5 * (log(1 + r) - log(1 - r)) #fisher transformation
 fisher.z2r <- function(z) (exp(2 * z) - 1) / (exp(2 * z) + 1) #backward fisher transformation
@@ -126,7 +126,7 @@ paste.test.statistic <- function(object, test, r1.name=NULL, r2.name=NULL) {
             else paste(retained, " (Lower boundary <= ", object@null.value, ")", sep="")
           },
           less={
-            if(r$conf.int[2] < object@null.value) paste(retained, " (Upper boundary < ", object@null.value, ")", sep="")
+            if(r$conf.int[2] < object@null.value) paste(rejected, " (Upper boundary < ", object@null.value, ")", sep="")
             else paste(retained, " (Upper boundary >= ", object@null.value, ")", sep="")
           }
         )

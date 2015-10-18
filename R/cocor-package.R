@@ -3,17 +3,17 @@
 #' \tabular{ll}{
 #' Package: \tab cocor\cr
 #' Type: \tab Package\cr
-#' Version: \tab 1.1-1\cr
-#' Date: \tab 2015-04-10\cr
+#' Version: \tab 1.1-2\cr
+#' Date: \tab 2015-10-17\cr
 #' Depends: \tab methods\cr
-#' Enhances: \tab RKWard\cr
+#' Enhances: \tab rkward\cr
 #' Encoding: \tab UTF-8\cr
 #' License: \tab GPL (>= 3)\cr
 #' LazyLoad: \tab yes\cr
 #' URL: \tab http://comparingcorrelations.org\cr
 #' }
 #'
-#' Statistical tests for the comparison between two correlations based on either independent or dependent groups. Dependent correlations can either be overlapping or nonoverlapping. A web interface is available at http://comparingcorrelations.org. A plugin for 'RKWard' is included. 'RKWard' can be obtained freely from https://rkward.kde.org.
+#' Statistical tests for the comparison between two correlations based on either independent or dependent groups. Dependent correlations can either be overlapping or nonoverlapping. A web interface is available at http://comparingcorrelations.org. A plugin for the R GUI and IDE RKWard is included. Please install RKWard from https://rkward.kde.org to use this feature. The respective R package 'rkward' cannot be installed directly from a repository, as it is a part of RKWard.
 #'
 #' @aliases cocor-package
 #' @name cocor-package
