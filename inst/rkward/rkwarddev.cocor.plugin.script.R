@@ -10,8 +10,8 @@ local({
     author=person(given="Birk", family="Diedenhofen", email="mail@birkdiedenhofen.de", role=c("aut","cre")),
     about=list(
       desc="Comparison of two correlations based on either dependent or independent groups.",
-      version="1.1-2",
-      date="2015-10-17",
+      version="1.1-3",
+      date="2016-05-28",
       url="http://comparingcorrelations.org",
       license="GPL"
     )

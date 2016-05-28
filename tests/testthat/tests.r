@@ -88,18 +88,18 @@ test_that("Missing data is handled correctly", {
 })
 
 test_that("Output is correct", {
-  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name="foo"), "Data: foo")
-  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name=c("foo", "bar")), "Data: foo; bar")
-  expect_output(cocor.indep.groups(.92, .82, 60, 50, var.labels=c("foo", "bar", "bay", "baz")), "bar")
-  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name="mydata", var.labels=c("foo", "bar", "bay", "baz")), "Data: mydata: j = foo, k = bar, h = bay, m = baz")
-  expect_output(cocor.indep.groups(.92, .82, 60, 50, data.name=c("data1", "data2"), var.labels=c("foo", "bar", "bay", "baz")), "Data: data1: j = foo, k = bar; data2: h = bay, m = baz")
-  expect_output(cocor(~Fertility + Agriculture | Fertility + Examination, swiss), "Data: swiss: j = Fertility, k = Agriculture, h = Examination")
-  expect_output(cocor(~a + b | c + d, list(dataset1=data.frame(a=1:3,b=1:3),dataset2=data.frame(c=2:4,d=2:4))), "Data: dataset1: j = a, k = b; dataset2: h = c, m = d")
+  expect_output(print(cocor.indep.groups(.92, .82, 60, 50, data.name="foo")), "Data: foo")
+  expect_output(print(cocor.indep.groups(.92, .82, 60, 50, data.name=c("foo", "bar"))), "Data: foo; bar")
+  expect_output(print(cocor.indep.groups(.92, .82, 60, 50, var.labels=c("foo", "bar", "bay", "baz"))), "bar")
+  expect_output(print(cocor.indep.groups(.92, .82, 60, 50, data.name="mydata", var.labels=c("foo", "bar", "bay", "baz"))), "Data: mydata: j = foo, k = bar, h = bay, m = baz")
+  expect_output(print(cocor.indep.groups(.92, .82, 60, 50, data.name=c("data1", "data2"), var.labels=c("foo", "bar", "bay", "baz"))), "Data: data1: j = foo, k = bar; data2: h = bay, m = baz")
+  expect_output(print(cocor(~Fertility + Agriculture | Fertility + Examination, swiss)), "Data: swiss: j = Fertility, k = Agriculture, h = Examination")
+  expect_output(print(cocor(~a + b | c + d, list(dataset1=data.frame(a=1:3,b=1:3),dataset2=data.frame(c=2:4,d=2:4)))), "Data: dataset1: j = a, k = b; dataset2: h = c, m = d")
   
-  expect_output(cocor.indep.groups(r1.jk=-.045, r2.hm=.221, n1=160, n2=87, alternative="less", data.name="foo"), "Null hypothesis rejected \\(Upper boundary < 0\\)")
-  expect_output(cocor.indep.groups(r1.jk=-.045, r2.hm=.221, n1=160, n2=87, alternative="greater", data.name="foo"), "Null hypothesis retained \\(Lower boundary <= 0\\)")
-  expect_output(cocor.indep.groups(r1.jk=.221, r2.hm=-.045, n1=160, n2=87, alternative="less", data.name="foo"), "Null hypothesis retained \\(Upper boundary >= 0\\)")
-  expect_output(cocor.indep.groups(r1.jk=.221, r2.hm=-.045, n1=160, n2=87, alternative="greater", data.name="foo"), "Null hypothesis rejected \\(Lower boundary > 0\\)")
+  expect_output(print(cocor.indep.groups(r1.jk=-.045, r2.hm=.221, n1=160, n2=87, alternative="less", data.name="foo")), "Null hypothesis rejected \\(Upper boundary < 0\\)")
+  expect_output(print(cocor.indep.groups(r1.jk=-.045, r2.hm=.221, n1=160, n2=87, alternative="greater", data.name="foo")), "Null hypothesis retained \\(Lower boundary <= 0\\)")
+  expect_output(print(cocor.indep.groups(r1.jk=.221, r2.hm=-.045, n1=160, n2=87, alternative="less", data.name="foo")), "Null hypothesis retained \\(Upper boundary >= 0\\)")
+  expect_output(print(cocor.indep.groups(r1.jk=.221, r2.hm=-.045, n1=160, n2=87, alternative="greater", data.name="foo")), "Null hypothesis rejected \\(Lower boundary > 0\\)")
 })
 
 
