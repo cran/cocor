@@ -3,11 +3,11 @@
 \docType{methods}
 \name{get.cocor.input}
 \alias{get.cocor.input}
-\alias{get.cocor.input,-method}
 \alias{get.cocor.input,cocor-method}
-\alias{get.cocor.input,cocor.dep.groups.nonoverlap-method}
-\alias{get.cocor.input,cocor.dep.groups.overlap-method}
+\alias{get.cocor.input,-method}
 \alias{get.cocor.input,cocor.indep.groups-method}
+\alias{get.cocor.input,cocor.dep.groups.overlap-method}
+\alias{get.cocor.input,cocor.dep.groups.nonoverlap-method}
 \title{Get input parameters of a cocor result object}
 \usage{
 get.cocor.input(result.object)
@@ -54,4 +54,3 @@ get.cocor.input(cocor.result)
 \link{get.cocor.results}, \link{cocor}, \link{cocor.indep.groups},
       \link{cocor.dep.groups.overlap}, \link{cocor.dep.groups.nonoverlap}
 }
-

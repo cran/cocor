@@ -19,8 +19,8 @@
 #' The formula for the test statistic \eqn{z} is computed as
 #' \deqn{z = \frac{\sqrt{n} (r_{jk} - r_{hm})}{\sqrt{(1 - r_{jk}^2)^2 + (1 - r_{hm}^2)^2 - k}}}{z = (\sqrt(n) (r_{jk} - r_{hm}))/(\sqrt((1 - r_{jk}^2)^2 + (1 - r_{hm}^2)^2 - k))}
 #' (Raghunathan, Rosenthal, and Rubin, 1996, p. 179, formula 1), where
-#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh})}{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh}) + (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
-#' \deqn{+ (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}{}
+#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh})}
+#' \deqn{+ (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
 #' (Raghunathan et al. (1996, p. 179, formula 2).
 #' The two formulae can also be found in Steiger (1980, p. 245, formula 2 and p. 246, formula 5).
 #'}
@@ -32,9 +32,9 @@
 #' The test statistic \eqn{z} of this test is calculated as
 #' \deqn{z = \frac{(Z_{jk} - Z_{hm})\sqrt{n - 3}}{\sqrt{2 - 2c}}}{z = ((Z_{jk} - Z_{hm})\sqrt(n - 3))/(\sqrt(2 - 2c))}
 #' (Dunn and Clark, 1969, p. 370, formula 15), where
-#' \deqn{c = \Bigl(\frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh}}{c = ((1/2) r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh} - (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm}))/((1 - r_{jk}^2)(1 - r_{hm}^2))}
-#' \deqn{-(r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})\Bigr)}{}
-#' \deqn{\Big/ \Bigl((1 - r_{jk}^2)(1 - r_{hm}^2)\Bigr)}{}
+#' \deqn{c = \Bigl(\frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh}}{c = ((1/2) r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh}}
+#' \deqn{- (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})\Bigr)}{- (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm}))}
+#' \deqn{\Big/ \Bigl((1 - r_{jk}^2)(1 - r_{hm}^2)\Bigr)}{/((1 - r_{jk}^2)(1 - r_{hm}^2))}
 #' (Dunn and Clark, 1969, p. 368, formula 9).
 #'}
 #'
@@ -62,8 +62,8 @@
 #' The test statistic \eqn{z} is computed as
 #' \deqn{z = \sqrt{\frac{n - 3}{2}} \frac{Z_{jk} - Z_{hm}}{\sqrt{1 - \frac{k}{2(1 - r_{jk}^2)(1 - r_{hm}^2)}}}}{z = \sqrt((n - 3)/2)(Z_{jk} - Z_{hm})/(\sqrt(1 - k/(2(1 - r_{jk}^2)(1 - r_{hm}^2))))}
 #' (Raghunathan et al., 1996, p. 179, formula 3), where
-#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh})}{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh}) + (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
-#' \deqn{+ (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}{}
+#' \deqn{k = (r_{jh} - r_{jk} r_{kh}) (r_{km} - r_{kh} r_{hm}) + (r_{jm} - r_{jh} r_{hm}) (r_{kh} - r_{jk} r_{jh})}
+#' \deqn{+ (r_{jh} - r_{jm} r_{hm}) (r_{km} - r_{jk} r_{jm}) + (r_{jm} - r_{jk} r_{km}) (r_{kh} - r_{km} r_{hm})}
 #' (Raghunathan et al., 1996, p. 179, formula 2).
 #'}
 #'
@@ -99,9 +99,9 @@
 #' \deqn{l = \frac{exp(2l') - 1}{exp(2l') + 1},}{l = (exp(2l') - 1)/(exp(2l') + 1),}
 #' \deqn{u = \frac{exp(2u') - 1}{exp(2u') + 1}}{u = (exp(2u') - 1)/(exp(2u') + 1)}
 #' (Zou, 2007, p. 406),
-#' \deqn{c = \Bigl(\frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh}}{c = ((1/2) r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh} - (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm}))/((1 - r_{jk}^2)(1 - r_{hm}^2))}
-#' \deqn{- (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})\Bigr)}{}
-#' \deqn{\Big/ \Bigl((1 - r_{jk}^2)(1 - r_{hm}^2)\Bigr)}{}
+#' \deqn{c = \Bigl(\frac{1}{2} r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh}}{c = ((1/2) r_{jk} r_{hm} (r_{jh}^2 + r_{jm}^2 + r_{kh}^2 + r_{km}^2) + r_{jh} r_{km} + r_{jm} r_{kh}}
+#' \deqn{- (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm})\Bigr)}{- (r_{jk} r_{jh} r_{jm} + r_{jk} r_{kh} r_{km} + r_{jh} r_{kh} r_{hm} + r_{jm} r_{km} r_{hm}))}
+#' \deqn{\Big/ \Bigl((1 - r_{jk}^2)(1 - r_{hm}^2)\Bigr)}{/((1 - r_{jk}^2)(1 - r_{hm}^2))}
 #' (Zou, 2007, p. 409), and
 #' \deqn{l',u' = Z \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n - 3}}}{l',u' = Z +- z_{\alpha/2} \sqrt(1/(n - 3))}
 #' (Zou, 2007, p. 406).

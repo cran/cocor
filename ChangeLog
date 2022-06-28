@@ -1,5 +1,9 @@
 ChangeLog for package cocor
 
+changes in version 1.1-4 (2022-06-28)
+changed:
+  - Fix the plain text/HTML typesetting of some formulas in the documentation.
+
 changes in version 1.1-3 (2016-05-28)
 changed:
   - Maintenance release to comply with the new version of the testthat

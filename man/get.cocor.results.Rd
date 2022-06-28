@@ -3,11 +3,11 @@
 \docType{methods}
 \name{get.cocor.results}
 \alias{get.cocor.results}
-\alias{get.cocor.results,-method}
 \alias{get.cocor.results,cocor-method}
-\alias{get.cocor.results,cocor.dep.groups.nonoverlap-method}
-\alias{get.cocor.results,cocor.dep.groups.overlap-method}
+\alias{get.cocor.results,-method}
 \alias{get.cocor.results,cocor.indep.groups-method}
+\alias{get.cocor.results,cocor.dep.groups.overlap-method}
+\alias{get.cocor.results,cocor.dep.groups.nonoverlap-method}
 \title{Get result parameters of a cocor result object}
 \usage{
 get.cocor.results(result.object, test = "all")
@@ -49,4 +49,3 @@ get.cocor.results(cocor.result)
 \link{get.cocor.input}, \link{cocor}, \link{cocor.indep.groups},
       \link{cocor.dep.groups.overlap}, \link{cocor.dep.groups.nonoverlap}
 }
-

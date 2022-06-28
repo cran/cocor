@@ -4,9 +4,17 @@
 \alias{cocor}
 \title{Compare two correlations based on either dependent or independent groups}
 \usage{
-cocor(formula, data, alternative = "two.sided", test = "all",
-  na.action = getOption("na.action"), alpha = 0.05, conf.level = 0.95,
-  null.value = 0, return.htest = FALSE)
+cocor(
+  formula,
+  data,
+  alternative = "two.sided",
+  test = "all",
+  na.action = getOption("na.action"),
+  alpha = 0.05,
+  conf.level = 0.95,
+  null.value = 0,
+  return.htest = FALSE
+)
 }
 \arguments{
 \item{formula}{A formula specifying the correlations and their underlying variables (See details).}
@@ -49,13 +57,13 @@ Performs a test of significance for the difference between two correlations base
       and \code{d} after the "\code{|}" character -- must refer to columns in the data.frame/matrix of the second element in the list.
  }
 
-\item{Comparison of two overlapping correlations based on dependent groups}{
+ \item{Comparison of two overlapping correlations based on dependent groups}{
    The \code{formula} parameterfor correlations based on dependent groups with overlapping variables must follow the pattern \code{~a + b | a + c}. The variables of the two correlation -- \code{a},
       \code{b},
       and \code{c} -- must refer to columns in the data.frame/matrix of the \code{data} object.
  }
 
-\item{Comparison of two nonoverlapping correlations based on dependent groups}{
+ \item{Comparison of two nonoverlapping correlations based on dependent groups}{
    The \code{formula} for correlations based on dependent groups with nonoverlapping variables must have the form \code{~a + b | c + d}. The variables of the two correlation -- \code{a},
       \code{b}, \code{c},
       and \code{d} -- must refer to columns in the data.frame/matrix of the \code{data} object.
@@ -85,4 +93,3 @@ cocor(~knowledge + intelligence.b | logic + intelligence.a, aptitude$sample1,
 \link{cocor.indep.groups}, \link{cocor.dep.groups.overlap},
       \link{cocor.dep.groups.nonoverlap}, \link{as.htest}
 }
-

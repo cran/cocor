@@ -4,9 +4,20 @@
 \alias{cocor.indep.groups}
 \title{Compare two correlations based on independent groups}
 \usage{
-cocor.indep.groups(r1.jk, r2.hm, n1, n2, alternative = "two.sided",
-  test = "all", alpha = 0.05, conf.level = 0.95, null.value = 0,
-  data.name = NULL, var.labels = NULL, return.htest = FALSE)
+cocor.indep.groups(
+  r1.jk,
+  r2.hm,
+  n1,
+  n2,
+  alternative = "two.sided",
+  test = "all",
+  alpha = 0.05,
+  conf.level = 0.95,
+  null.value = 0,
+  data.name = NULL,
+  var.labels = NULL,
+  return.htest = FALSE
+)
 }
 \arguments{
 \item{r1.jk}{A number specifying the correlation between j and k measured in group 1}
@@ -105,6 +116,7 @@ A lower and upper bound for the confidence interval of \eqn{r_1} (\eqn{l_1} and 
 
 }
 }
+
 \examples{
 # Compare the difference between two correlations based
 # on two independent groups:
@@ -138,4 +150,3 @@ Zou,
 \link{cocor}, \link{cocor.dep.groups.overlap}, \link{cocor.dep.groups.nonoverlap},
       \link{as.htest}
 }
-

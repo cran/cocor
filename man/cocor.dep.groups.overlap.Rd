@@ -4,9 +4,20 @@
 \alias{cocor.dep.groups.overlap}
 \title{Compare two overlapping correlations based on dependent groups}
 \usage{
-cocor.dep.groups.overlap(r.jk, r.jh, r.kh, n, alternative = "two.sided",
-  test = "all", alpha = 0.05, conf.level = 0.95, null.value = 0,
-  data.name = NULL, var.labels = NULL, return.htest = FALSE)
+cocor.dep.groups.overlap(
+  r.jk,
+  r.jh,
+  r.kh,
+  n,
+  alternative = "two.sided",
+  test = "all",
+  alpha = 0.05,
+  conf.level = 0.95,
+  null.value = 0,
+  data.name = NULL,
+  var.labels = NULL,
+  return.htest = FALSE
+)
 }
 \arguments{
 \item{r.jk}{A number specifying the correlation between \eqn{j} and \eqn{k} (this correlation is used for comparison)}
@@ -257,6 +268,7 @@ and
 
 }
 }
+
 \examples{
 # Compare the difference between the correlations (age, intelligence) and
 # (age, shoe size) measured in the same group (all values are fictional):
@@ -360,4 +372,3 @@ Zou,
 \link{cocor}, \link{cocor.indep.groups}, \link{cocor.dep.groups.nonoverlap},
       \link{as.htest}
 }
-

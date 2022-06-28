@@ -42,4 +42,3 @@ as.htest(cocor.result)
 \link{cocor}, \link{cocor.indep.groups}, \link{cocor.dep.groups.overlap},
       \link{cocor.dep.groups.nonoverlap}
 }
-
